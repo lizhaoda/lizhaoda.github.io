@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="事情的起因是这样的：  于是呼，写下了下面的代码输入不同的time，可以得到不同的结果    #!/usr/bin/python # -*- coding: UTF-8 -*- time =  5 guess =  [&amp;#39;你猜我&amp;#39;] for x in range(time): guess.append(&amp;#39;猜你&amp;#39;) str =  &amp;#39;&amp;#39; for x in">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="guess">
+<meta property="og:url" content="http://yoursite.com/2016/12/06/guess/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="事情的起因是这样的：  于是呼，写下了下面的代码输入不同的time，可以得到不同的结果    #!/usr/bin/python # -*- coding: UTF-8 -*- time =  5 guess =  [&amp;#39;你猜我&amp;#39;] for x in range(time): guess.append(&amp;#39;猜你&amp;#39;) str =  &amp;#39;&amp;#39; for x in">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_ea4a7755-1600-4347-8c87-58d02bedd8b0.png">
+<meta property="og:image" content="http://yoursite.com/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_445eef9a-07ed-4dc6-8399-70d709e06c75.png">
+<meta property="og:image" content="http://yoursite.com/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_60a8f568-1c0d-428c-8677-bfc8efd0ca8e.png">
+<meta property="og:updated_time" content="2018-08-04T06:14:34.967Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="guess">
+<meta name="twitter:description" content="事情的起因是这样的：  于是呼，写下了下面的代码输入不同的time，可以得到不同的结果    #!/usr/bin/python # -*- coding: UTF-8 -*- time =  5 guess =  [&amp;#39;你猜我&amp;#39;] for x in range(time): guess.append(&amp;#39;猜你&amp;#39;) str =  &amp;#39;&amp;#39; for x in">
+<meta name="twitter:image" content="http://yoursite.com/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_ea4a7755-1600-4347-8c87-58d02bedd8b0.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/06/guess/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>guess | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/06/guess/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">guess
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-12-06 01:20:53" itemprop="dateCreated datePublished" datetime="2016-12-06T01:20:53+08:00">2016-12-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-04 14:14:34" itemprop="dateModified" datetime="2018-08-04T14:14:34+08:00">2018-08-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>事情的起因是这样的：</p>
+<p><img src="/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_ea4a7755-1600-4347-8c87-58d02bedd8b0.png" alt=""></p>
+<p>于是呼，写下了下面的代码输入不同的time，可以得到不同的结果  </p>
+<ol>
+<li><code>#!/usr/bin/python</code></li>
+<li><code># -*- coding: UTF-8 -*-</code></li>
+<li><code>time =  5</code></li>
+<li><code>guess =  [&#39;你猜我&#39;]</code></li>
+<li><code>for x in range(time):</code></li>
+<li><code>guess.append(&#39;猜你&#39;)</code></li>
+<li><code>str =  &#39;&#39;</code></li>
+<li><code>for x in guess:</code></li>
+<li><code>str += x</code></li>
+<li><code>last =  &#39;猜不猜&#39;</code></li>
+<li><code>str += last</code></li>
+<li><code>print str[0:]</code></li>
+</ol>
+<p>运用到的知识：  </p>
+<ul>
+<li><p>字符串的拼接</p>
+</li>
+<li><p>列表的扩展</p>
+</li>
+<li><p>字符串的输出，不能直接这样输出</p>
+</li>
+<li><p>输出的时候用[0:]可以去掉引号  </p>
+</li>
+</ul>
+<ol>
+<li><p><code>print guess</code></p>
+</li>
+<li><p><code>[&#39;\xe4\xbd\xa0\xe7\x8c\x9c\xe6\x88\x91&#39;,  &#39;\xe7\x8c\x9c\xe4\xbd\xa0&#39;,  &#39;\xe7\x8c\x9c\xe4\xbd\xa0&#39;,  &#39;\xe7\x8c\x9c\xe4\xbd\xa0&#39;,  &#39;\xe7\x8c\x9c\xe4\xbd\xa0&#39;,  &#39;\xe7\x8c\x9c\xe4\xbd\xa0&#39;]</code></p>
+</li>
+</ol>
+<p>她这样回复的： <img src="/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_445eef9a-07ed-4dc6-8399-70d709e06c75.png" alt=""> 她敢嘲笑我大Python不行，说Python麻烦，于是吸取她的代码经验，不需要存储直接print就好(我经常犯这种错误，经常存储起来然后使用！！！)</p>
+<ol>
+<li><code>print  &quot;%s%s%s&quot;  %  (&#39;你猜我&#39;,  5*&#39;猜你&#39;,  &#39;猜不猜&#39;)</code></li>
+</ol>
+<p>这个地方也可以这样写：</p>
+<ol>
+<li><code>print  &quot;{}{}{}&quot;.format(&#39;你猜我&#39;,  5*&#39;猜你&#39;,  &#39;猜不猜&#39;)</code></li>
+</ol>
+<p>这个地方不能这样写，是因为：</p>
+<ol>
+<li><code>print  &#39;你猜我&#39;,</code></li>
+<li><code>for x in range(5):</code></li>
+<li><code>print  &#39;猜你&#39;,</code></li>
+<li><code>print  &#39;猜不猜&#39;</code></li>
+</ol>
+<p>因为Python中默认print是换行输出的，所以这里要加逗号，但是这样的话会有空格 结果如下：</p>
+<ol>
+<li><code>你猜我  猜你  猜你  猜你  猜你  猜你  猜不猜</code></li>
+</ol>
+<p>就着这个时候，他说不行，逻辑是错的，应该是你猜与我猜交叉： 于是经过近乎斗气般的努力： 敲出了如下语句：</p>
+<ol>
+<li><code>print  &quot;&quot;.join([(&#39;猜你&#39;  if x %  2  ==  0  else  &#39;猜我&#39;)for x in range(1,  11)])</code></li>
+</ol>
+<p>首先我们是这样添加头的：</p>
+<ol>
+<li><code>print  &quot;hello&quot;.join([(&#39;猜你&#39;  if x %  2  ==  0  else  &#39;猜我&#39;)for x in range(1,  11)])</code></li>
+</ol>
+<p>然而出现了下面情况：</p>
+<ol>
+<li><code>猜我hello猜你hello猜我hello猜你hello猜我hello猜你hello猜我hello猜你hello猜我hello猜你</code></li>
+</ol>
+<p>查原因请看附录中join的用法 然后改成这样添加头与尾：</p>
+<ol>
+<li><code>print  &quot;{}{}{}&quot;.format(&#39;你猜我&#39;,  &#39;&#39;.join([(&#39;猜你&#39;  if x %  2  ==  1  else  &#39;猜我&#39;)for x in range(1,  11)]),  &#39;猜不猜&#39;)</code></li>
+</ol>
+<p>效果：</p>
+<ol>
+<li><code>你猜我猜你猜我猜你猜我猜你猜我猜你猜我猜你猜我猜不猜</code></li>
+</ol>
+<p>最终当然是我伟大的Python赢了，于是乎结果：</p>
+<p><img src="/2016/12/06/guess/zdkit.ticp.io/wp-content/uploads/2016/12/23197ed4c817a338420035d32b944d5f_60a8f568-1c0d-428c-8677-bfc8efd0ca8e.png" alt=""></p>
+<p>附录：<br>Python的join用法： 函数：string.join() Python中有join()和os.path.join()两个函数，具体作用如下：<br>    join()：    连接字符串数组。将字符串、元组、列表中的元素以指定的字符(分隔符)连接生成一个新的字符串<br>    os.path.join()：  将多个路径组合后返回 一、函数说明<br>1、join()函数 语法：  ‘sep’.join(seq) 参数说明<br>sep：分隔符。可以为空<br>seq：要连接的元素序列、字符串、元组、字典<br>上面的语法即：以sep作为分隔符，将seq所有的元素合并成一个新的字符串 返回值：返回一个以分隔符sep连接各个元素后生成的字符串 2、os.path.join()函数 语法：  os.path.join(path1[,path2[,……]]) 返回值：将多个路径组合后返回 注：第一个绝对路径之前的参数将被忽略 二、实例 #对序列进行操作（分别使用’ ‘与’:’作为分隔符） &gt;&gt;> seq1 = [‘hello’,’good’,’boy’,’doiido’] &gt;&gt;&gt; print ‘ ‘.join(seq1) hello good boy doiido &gt;&gt;&gt; print ‘:’.join(seq1) hello:good:boy:doiido    #对字符串进行操作 &gt;&gt;> seq2 = “hello good boy doiido” &gt;&gt;&gt; print ‘:’.join(seq2) h:e:l:l:o: :g:o:o:d: :b:o:y: :d:o:i:i:d:o    #对元组进行操作  &gt;&gt;> seq3 = (‘hello’,’good’,’boy’,’doiido’) &gt;&gt;> print ‘:’.join(seq3) hello:good:boy:doiido    #对字典进行操作 &gt;&gt;> seq4 = {‘hello’:1,’good’:2,’boy’:3,’doiido’:4} &gt;&gt;&gt; print ‘:’.join(seq4) boy:good:doiido:hello    #合并目录 &gt;&gt;> import os &gt;&gt;&gt; os.path.join(‘/hello/‘,’good/boy/‘,’doiido’) ‘/hello/good/boy/doiido’  </p>
+<hr>
+<p>Python一行打印心形：</p>
+<ol>
+<li><code>print&#39;\n&#39;.join([&#39;&#39;.join([(&#39;PYTHON!&#39;[(x-y)%7]if((x*0.05)**2+(y*0.1)**2-1)**3-(x*0.05)**2*(y*0.1)**3&lt;=0  else&#39; &#39;)for x in range(-30,30)])for y in range(15,-15,-1)])</code></li>
+</ol>
+<p><a href="http://www.wiz.cn/i/2381a414" title="来自为知笔记(Wiz)" target="_blank" rel="noopener">来自为知笔记(Wiz)</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/29/2016-e5-b9-b411-e6-9c-8829/" rel="next" title="2016年11月29">
+                <i class="fa fa-chevron-left"></i> 2016年11月29
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/09/e4-b8-8d-e8-af-ad/" rel="prev" title="不语">
+                不语 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="经过上一篇文章，我们基本了解了Fisher算法的基本思路： 通过选择投影方向，使类别类内更聚集，类间更分离 投影方向的选择，经过一系列的推导，我们得到了一个很简单的式子：  w*就是我们需要得到的投影方向，最佳的变换向量。 ----- 好了，这篇是实践篇，我们将会把我们的理论向代码走上那么一步 我们将会使用python这门语言进行讲解 不懂python的同学不用担心，python的语法基本看都能读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fisher整理（实战篇）">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="经过上一篇文章，我们基本了解了Fisher算法的基本思路： 通过选择投影方向，使类别类内更聚集，类间更分离 投影方向的选择，经过一系列的推导，我们得到了一个很简单的式子：  w*就是我们需要得到的投影方向，最佳的变换向量。 ----- 好了，这篇是实践篇，我们将会把我们的理论向代码走上那么一步 我们将会使用python这门语言进行讲解 不懂python的同学不用担心，python的语法基本看都能读">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_f17dc3ae-3a3d-479c-87ac-88c149e6531d-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_a69dd9d6-de20-44da-a462-8067775cc221-1.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_05483f86-8986-445e-bbeb-561e19fe6fd9-1.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_a96bbab3-805c-4a76-b7f9-f66da5c96f61-1.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_697ec3db-ed40-4b78-91ce-976e81673e88-1.png">
+<meta property="og:updated_time" content="2018-08-04T06:14:34.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fisher整理（实战篇）">
+<meta name="twitter:description" content="经过上一篇文章，我们基本了解了Fisher算法的基本思路： 通过选择投影方向，使类别类内更聚集，类间更分离 投影方向的选择，经过一系列的推导，我们得到了一个很简单的式子：  w*就是我们需要得到的投影方向，最佳的变换向量。 ----- 好了，这篇是实践篇，我们将会把我们的理论向代码走上那么一步 我们将会使用python这门语言进行讲解 不懂python的同学不用担心，python的语法基本看都能读">
+<meta name="twitter:image" content="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_f17dc3ae-3a3d-479c-87ac-88c149e6531d-1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Fisher整理（实战篇） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Fisher整理（实战篇）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-11 01:13:20" itemprop="dateCreated datePublished" datetime="2016-10-11T01:13:20+08:00">2016-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-04 14:14:34" itemprop="dateModified" datetime="2018-08-04T14:14:34+08:00">2018-08-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经过上一篇文章，我们基本了解了Fisher算法的基本思路：</p>
+<p>通过选择投影方向，使类别类内更聚集，类间更分离</p>
+<p>投影方向的选择，经过一系列的推导，我们得到了一个很简单的式子：</p>
+<p><img src="/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_f17dc3ae-3a3d-479c-87ac-88c149e6531d-1.jpg" alt=""></p>
+<p>w*就是我们需要得到的投影方向，最佳的变换向量。</p>
+<p>-----</p>
+<p>好了，这篇是实践篇，我们将会把我们的理论向代码走上那么一步</p>
+<p>我们将会使用python这门语言进行讲解</p>
+<p>不懂python的同学不用担心，python的语法基本看都能读懂，</p>
+<p>我们不考究读入数据，处理数据的过程</p>
+<p>因为目标是理解公式向代码转换的一步</p>
+<p>先来明确目标：</p>
+<p>- 将求得最佳的变换向量得式子转换为代码</p>
+<p>- 将样本通过w*映射到一维得y空间</p>
+<p>- 求分类的阈值</p>
+<p>- 统计正确率</p>
+<p>----</p>
+<p>###一、求w*</p>
+<p>我们先看式子，我们要求得w*，代表我们需要先求出</p>
+<p>均值向量：<img src="/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_a69dd9d6-de20-44da-a462-8067775cc221-1.png" alt=""></p>
+<p>样本类内离散度矩阵Si和总样本类内离散度矩阵Sw ：     </p>
+<p><img src="/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_05483f86-8986-445e-bbeb-561e19fe6fd9-1.png" alt=""></p>
+<p>#####1. 均值向量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mean_vector</span><span class="params">(self, array)</span>:</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">   m = <span class="number">0</span> </span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> x <span class="keyword">in</span> array\[:,:<span class="number">-1</span>\]: </span><br><span class="line"></span><br><span class="line">             m = m + x </span><br><span class="line"></span><br><span class="line">             count += <span class="number">1</span> </span><br><span class="line"></span><br><span class="line">             m = m/count </span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> m</span><br></pre></td></tr></table></figure>
+<p>传入参数array为我们的数据（一类的数据）</p>
+<p>我们通过for循环累加该类同一维下的值，最后除以总数（用变量m进行计数），得到均值向量</p>
+<p>#####2. 样本类内离散度Si:  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">within</span>\<span class="title">_class</span>\<span class="title">_scatter_matrix</span><span class="params">(self, sample, m)</span>:</span>  </span><br><span class="line">    s = <span class="number">0</span>  </span><br><span class="line"> <span class="keyword">for</span> x <span class="keyword">in</span> sample:  </span><br><span class="line">        s = s \+ np.dot(x - m, (x - m).T)  </span><br><span class="line">    <span class="keyword">return</span> s</span><br></pre></td></tr></table></figure>
+<p>传入参数 sample为我们一类的数据，m为该类的均值向量</p>
+<p>dot()函数进行计算两个矩阵的点乘，<strong>（x-m）.T</strong>表示x矩阵减去m矩阵后的转置</p>
+<p>for循环进行累加，最后返回s即为类内离散度</p>
+<p>#####3. 分别求出需要分类的两类的均值  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">m1 = self.mean_vector(sample1)  </span><br><span class="line">m2 = self.mean_vector(sample2)  </span><br><span class="line">s1 = self.within\_class\_scatter_matrix(sample1\[:, :<span class="number">-1</span>\], m1)  </span><br><span class="line">s2 = self.within\_class\_scatter_matrix(sample2\[:, :<span class="number">-1</span>\], m2)  </span><br><span class="line">s = s1 + s2</span><br></pre></td></tr></table></figure>
+<p>m1, m2分别为需要分类的两类的均值向量</p>
+<p>s1, s2 分别为两类的类内离散度</p>
+<p>s 为 总的类内离散度</p>
+<p>最后，我们通过一个语句就可以求出w*</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">w = np.dot(s.T, m1 - m2)</span><br></pre></td></tr></table></figure>
+<p>###二、将样本通过w*映射到一维得y空间</p>
+<p> 在这里，我们根据公式yi = wTxi 能很轻松地完成映射工作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">y = np.dot(w.T, x.T)</span><br></pre></td></tr></table></figure>
+<p>这里的转置并不一定与公式推理的时候一样，</p>
+<p>因为在程序运行时，读入数据储存的方式不一定跟推导时相同</p>
+<p>所以需要按具体而定</p>
+<p>###三、求分类的阈值</p>
+<p>我们在理论篇中可以看到，我们给出了三种常用阈值，</p>
+<p>但是为了简化，且达到一个不错的效果，我们使用以下阈值</p>
+<p><img src="/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_a96bbab3-805c-4a76-b7f9-f66da5c96f61-1.png" alt=""></p>
+<p> 所以我们需要求出经过投影后的样本均值<img src="/2016/10/11/fisher-e6-95-b4-e7-90-86-ef-bc-88-e5-ae-9e-e6-88-98-e7-af-87-ef-bc-89/zdkit.ticp.io/wp-content/uploads/2016/10/69423be8f41182a745378f622af1ba7f_697ec3db-ed40-4b78-91ce-976e81673e88-1.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__mean</span><span class="params">(self, sample, w)</span>:</span>  </span><br><span class="line">    a = list()  </span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> sample:  </span><br><span class="line">        y = self.predict(x, w)  </span><br><span class="line">        a.append(y)  </span><br><span class="line">    y = np.array(a)  </span><br><span class="line">    <span class="keyword">return</span> y.mean()</span><br></pre></td></tr></table></figure>
+<p>传入参数，sample 样本（同一类的样本）, w投影向量</p>
+<p>对每个样本进行投影投影后，存放在a里，然后再转为矩阵形式（非专业式描述）存到y中</p>
+<p>最后通过mean()函数，求得均值，返回</p>
+<p>然后，我们求出两类的均值，再算出阈值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">__m1 = self.__mean(sample1\[:,:<span class="number">-1</span>\], w)  </span><br><span class="line">__m2 = self.__mean(sample2\[:,:<span class="number">-1</span>\], w)  </span><br><span class="line">\_\_w = (n1* \_\_m1 + n2* __m2)/n</span><br></pre></td></tr></table></figure>
+<p>###四、统计正确率  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">tes = np.array(array\[<span class="number">5</span>*n:<span class="number">5</span>*(n+<span class="number">1</span>)\])  </span><br><span class="line">prdit0 = myfisher.predict(w,tes\[:, :<span class="number">-1</span>\])  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">5</span>):  </span><br><span class="line">    p0 = prdit0\[i\] - __w  </span><br><span class="line">  <span class="keyword">if</span> p0 &gt; <span class="number">0</span>:  </span><br><span class="line">        res = <span class="number">1</span>  </span><br><span class="line">  <span class="keyword">else</span>:  </span><br><span class="line">        res = <span class="number">2</span>  </span><br><span class="line">  N\[int(tes\[i\]\[<span class="number">-1</span>\])<span class="number">-1</span>\] += <span class="number">1</span>  </span><br><span class="line">  <span class="keyword">if</span> res == tes\[i\]\[<span class="number">-1</span>\]:  </span><br><span class="line">        R\[res - <span class="number">1</span>\] += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>在这里，因为涉及了较多数据上的操作，所以可能并不太好理解这段代码</p>
+<p>我使用了交叉验证，每组测试集有5个样本，tes存放了这5个样本</p>
+<p>然后，prdit0存放了使用我们得出来的投影向量映射后的结果</p>
+<p>（因为我是封装了函数，所以进行映射的时候使用了predict()这个函数）</p>
+<p>p0 存放了我们映射后的y值与阈值的差，</p>
+<p>若p0&gt;0，我们就认为我们设计的分类器将此样本分为第一类，否则第二类</p>
+<p>然后N[]这个变量，用来统计实际上每类有多少个样本进行了测试</p>
+<p>当我们预测出来的类标res与样本自带的类标相同时，我们在R[]中加1，认为这个样本分类正确</p>
+<p>最后，我们通过N[]与R[]中存储的值计算正确率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"accuracy is "</span>  </span><br><span class="line"><span class="keyword">print</span> <span class="string">'class 1:'</span>, R\[<span class="number">0</span>\] / N\[<span class="number">0</span>\]  </span><br><span class="line"><span class="keyword">print</span> <span class="string">'class 2:'</span>, R\[<span class="number">1</span>\] / N\[<span class="number">1</span>\]  </span><br><span class="line"><span class="keyword">print</span> <span class="string">"accuracy is :"</span>,sum(R)/sum(N)</span><br></pre></td></tr></table></figure>
+<p>R中是正确的个数，N中是该类进行测试的样本个数</p>
+<p>（PS：前面求w*时用到的数据为训练集，测试集中的样本不应出现在训练集）</p>
+<p>----</p>
+<p>以上，我们就完成了我们的基本工作</p>
+<p>其实以上编程实现并不复杂，只要根据理论推导出来的式子，逐步求出所需的量就可以了</p>
+<p>在编程时，或许更需注意的是对数据进行的处理，</p>
+<p>例如我们数据通常会带有类标，而这个类标在计算均值等的时候是不需要的</p>
+<p>另外还有若要使用交叉验证，还需要编写一些额外的代码，这里就不细说了</p>
+<p>最后，因为我们的fisher算法其实更多的作用是对数据进行降维，</p>
+<p>所以如果有能力的话，可以将算法封装成类或函数，方便后续使用</p>
+<p>（虽然肯定有相应的工具包，但是用着自己的代码不是更愉快么？）</p>
+<p>----</p>
+<p>最后的最后，因为本人初出茅庐，涉世不深，如本文有何纰漏，敬请指出</p>
+<p>另外，若你知道代码有何更直接的算法，（例如像文中算均值向量其实不需要for循环这种）</p>
+<p>请您告诉我~谢谢~感激不尽</p>
+<p><a href="http://www.wiz.cn/i/c60ddff2" title="来自为知笔记(Wiz)" target="_blank" rel="noopener">来自为知笔记(Wiz)</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/fisher-e6-95-b4-e7-90-86-ef-bc-88-e7-90-86-e8-ae-ba-e7-af-87-ef-bc-89/" rel="next" title="Fisher整理（理论篇）">
+                <i class="fa fa-chevron-left"></i> Fisher整理（理论篇）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/e3-80-90-e8-bd-ac-e3-80-91-e9-b3-a5-e5-93-a5-e7-9a-84-linux-e7-a7-81-e6-88-bf-e8-8f-9c-e5-ad-b8-e7-bf-92-linux-e6-96-b0-e6-89-8b-e7-9a-84-e5-bb-ba-e8-ad-b0/" rel="prev" title="【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議">
+                【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

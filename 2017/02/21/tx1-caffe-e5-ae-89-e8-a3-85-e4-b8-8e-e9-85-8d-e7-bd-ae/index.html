@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="（本文大部分为别人整理的摘录，其中加入少许个人安装时候的补充）由于TX1是ARM架构，其编译与下载与PC上的ubuntu系统有些许不同。以下进行归纳整理：一、环境配置 1. 编译环境配置 安装必要的caffe环境  sudo add-apt-repository universe  sudo apt-get update  sudo apt-get install cmake git aptitu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TX1 Caffe安装与配置">
+<meta property="og:url" content="http://yoursite.com/2017/02/21/tx1-caffe-e5-ae-89-e8-a3-85-e4-b8-8e-e9-85-8d-e7-bd-ae/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="（本文大部分为别人整理的摘录，其中加入少许个人安装时候的补充）由于TX1是ARM架构，其编译与下载与PC上的ubuntu系统有些许不同。以下进行归纳整理：一、环境配置 1. 编译环境配置 安装必要的caffe环境  sudo add-apt-repository universe  sudo apt-get update  sudo apt-get install cmake git aptitu">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.09770083000209118.png">
+<meta property="og:image" content="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.6251721330453051.png">
+<meta property="og:image" content="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.2386867528791985.png">
+<meta property="og:updated_time" content="2018-08-04T06:14:34.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TX1 Caffe安装与配置">
+<meta name="twitter:description" content="（本文大部分为别人整理的摘录，其中加入少许个人安装时候的补充）由于TX1是ARM架构，其编译与下载与PC上的ubuntu系统有些许不同。以下进行归纳整理：一、环境配置 1. 编译环境配置 安装必要的caffe环境  sudo add-apt-repository universe  sudo apt-get update  sudo apt-get install cmake git aptitu">
+<meta name="twitter:image" content="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.09770083000209118.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/21/tx1-caffe-e5-ae-89-e8-a3-85-e4-b8-8e-e9-85-8d-e7-bd-ae/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>TX1 Caffe安装与配置 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/tx1-caffe-e5-ae-89-e8-a3-85-e4-b8-8e-e9-85-8d-e7-bd-ae/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TX1 Caffe安装与配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-21 11:47:19" itemprop="dateCreated datePublished" datetime="2017-02-21T11:47:19+08:00">2017-02-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-04 14:14:34" itemprop="dateModified" datetime="2018-08-04T14:14:34+08:00">2018-08-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>（本文大部分为别人整理的摘录，其中加入少许个人安装时候的补充）<br>由于TX1是ARM<a href="http://lib.csdn.net/base/architecture" title="大型网站架构知识库" target="_blank" rel="noopener">架构</a>，其编译与下载与PC上的ubuntu系统有些许不同。以下进行归纳整理：<br>一、环境配置 1. 编译环境配置 安装必要的caffe环境</p>
+<ol>
+<li><code>sudo add-apt-repository universe</code> </li>
+<li><code>sudo apt-get update</code> </li>
+<li><code>sudo apt-get install cmake git aptitude screen g++ libboost-all-dev \</code> </li>
+<li><code>libgflags-dev libgoogle-glog-dev protobuf-compiler libprotobuf-dev \</code> </li>
+<li><code>bc libblas-dev libatlas-dev libhdf5-dev libleveldb-dev liblmdb-dev \</code> </li>
+<li><code>libsnappy-dev libatlas-base-dev python-numpy libgflags-dev \</code> </li>
+<li><code>libgoogle-glog-dev python-skimage python-protobuf python-pandas \</code> </li>
+<li><code>libopencv-dev</code> </li>
+</ol>
+<p>在apt安装时，上面有个openCV库通常在刷板子时就自动装进去了（OpenCV4Tegra），所以可以不用管<br>2. Caffe下载</p>
+<ol>
+<li><code>git clone https://github.com/BVLC/caffe.git</code> </li>
+</ol>
+<p>二、编译caffe 所有环境都安装好之后，我们可以caffe的编译了。 首先需要对caffe的配置文件进行修改。使用cuDNN。</p>
+<ol>
+<li><code>cd caffe</code> </li>
+<li><code>mv Makefile.config.sample Makefile.config</code> </li>
+<li><code>gedit Makefile.config</code> </li>
+<li><code>第5行：去掉#号，即  “USE_CUDNN :=  1”</code> </li>
+<li><code>保存退出</code> </li>
+</ol>
+<p>修改配置文件，或使用</p>
+<ol>
+<li><code>sed -i &#39;s/# USE_CUDNN/USE_CUDNN/g&#39;  Makefile.config</code></li>
+</ol>
+<p>另外要注意的是，查看自己cuda版本，需要继续修改Makefile.config使兼容</p>
+<ol>
+<li><code>\# CUDA architecture setting: going with all of them.</code></li>
+<li><code>\# For CUDA &lt;  6.0, comment the *_50 through *_61 lines for compatibility.</code></li>
+<li><code># For CUDA &lt; 8.0, comment the *_60 and *_61 lines for compatibility.</code></li>
+<li><code>CUDA_ARCH :=  -gencode arch=compute_20,code=sm_20 \</code></li>
+<li><code>-gencode arch=compute_20,code=sm_21 \</code></li>
+<li><code>-gencode arch=compute_30,code=sm_30 \</code></li>
+<li><code>-gencode arch=compute_35,code=sm_35 \</code></li>
+<li><code>-gencode arch=compute_50,code=sm_50 \</code></li>
+<li><code>-gencode arch=compute_52,code=sm_52</code></li>
+<li><code>#               -gencode arch=compute_60,code=sm_60 \</code></li>
+<li><code>#               -gencode arch=compute_61,code=sm_61 \</code></li>
+<li><code>#               -gencode arch=compute_61,code=compute_61</code></li>
+</ol>
+<p>TX1装的cuda版本为7.0，按照文件中的提示，注释相应行。</p>
+<p>另外，TX1对这个选项设置还需要作如下改动：</p>
+<ol>
+<li><code>CUDA_ARCH :=  -gencode arch=compute_20,code=sm_20 \</code></li>
+<li><code>-gencode arch=compute_20,code=sm_21 \</code></li>
+<li><code>-gencode arch=compute_30,code=sm_30 \</code></li>
+<li><code>-gencode arch=compute_35,code=sm_35 \</code></li>
+<li><code>-gencode arch=compute_50,code=sm_50 \</code></li>
+<li><code>-gencode arch=compute_52,code=sm_52</code> </li>
+</ol>
+<p>添加  -gencode arch=compute_53,code=sm_53 一行</p>
+<p>参考：</p>
+<ol>
+<li><code>https://devtalk.nvidia.com/default/topic/991260/jetson-tx1/caffe-runtest-error-check-failed-error-cudasuccess-8-vs-0-invalid-device-function/</code></li>
+</ol>
+<p>编译caffe</p>
+<ol>
+<li>$ make -j 3 all</li>
+</ol>
+<p><a href="javascript:;" target="_blank" rel="noopener"><img src="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.09770083000209118.png" alt=""></a></p>
+<p>$ make all -j4</p>
+<p>关于使用make all -j 3 源于以下一段摘录  </p>
+<ol>
+<li><p><code>now compile caffe, remember Do NOT use all the cores by make all -j, or it hangs the system.  Instead use the following</code></p>
+</li>
+<li><p><code>make -j 3 all</code></p>
+</li>
+<li><p># just to make sure everything is fine, leave this if you are in a rush</p>
+</li>
+<li><code>make -j 3 runtest</code></li>
+</ol>
+<p>参考：</p>
+<ol>
+<li><code>http://qinhongwei.com/2016/05/08/how-to-install-caffe-on-NVIDIA-TX1/</code></li>
+</ol>
+<p>三、测试<a href="http://lib.csdn.net/base/softwaretest" title="软件测试知识库" target="_blank" rel="noopener"></a>MNIST 我们使用caffe自带的mnist例子来测试caffe是否编译成功。</p>
+<ol>
+<li>$ bash ./date/mnist/get_mnist.sh  </li>
+<li>$ bash ./examples/mnist/create_mnist.sh  </li>
+<li>$ bash ./examples/mnist/train_lenet.sh   </li>
+</ol>
+<p>$ bash ./date/mnist/get_mnist.sh<br>$ bash ./examples/mnist/create_mnist.sh<br>$ bash ./examples/mnist/train_lenet.sh </p>
+<p>如果caffe编译成功，则上面的程序不会报错。 四、使用g++编译caffe中的classification.cpp文件 使用g++指令编译classification.cpp文件，需要注意一些链接库的位置。</p>
+<ol>
+<li>$ g++ classification.cpp `pkg-config –libs –cflags opencv` -I /home/ubuntu/caffe/include -I /home/ubuntu/caffe/build/src -I /usr/local/cuda/include/ -L /home/ubuntu/caffe/build/lib/ -lcaffe -lprotobuf -lhdf5 -lhdf5_cpp -lhdf5_hl -lhdf5_hl_cpp   -lleveldb -llmdb  -lgflags -lglog -lboost_system -lboost_thread  </li>
+</ol>
+<p><a href="javascript:;" target="_blank" rel="noopener"><img src="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.6251721330453051.png" alt=""></a></p>
+<p>$ g++ classification.cpp `pkg-config –libs –cflags opencv` -I /home/ubuntu/caffe/include -I /home/ubuntu/caffe/build/src -I /usr/local/cuda/include/ -L /home/ubuntu/caffe/build/lib/ -lcaffe -lprotobuf -lhdf5 -lhdf5_cpp -lhdf5_hl -lhdf5_hl_cpp   -lleveldb -llmdb  -lgflags -lglog -lboost_system -lboost_thread</p>
+<p>编译成功之后，运行生成的a.out文件测试效果。</p>
+<ol>
+<li>$ sudo ./a.out deploy.prototxt vgg_iter_3600.caffemodel mean.binaryproto label.txt 1.jpg  </li>
+</ol>
+<p><a href="javascript:;" target="_blank" rel="noopener"><img src="http://www.zdkit.com/wp-content/uploads/2017/02/3e2912da647dcd16fe6e19e2474dd022_0.2386867528791985.png" alt=""></a></p>
+<p>$ sudo ./a.out deploy.prototxt vgg_iter_3600.caffemodel mean.binaryproto label.txt 1.jpg</p>
+<p>注意自己文件的路径，不能照抄  </p>
+<p><a href="http://www.wiz.cn/i/c60ddff2" title="null" target="_blank" rel="noopener">null</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/14/e5-85-83-e5-ae-b5-e8-8a-82-e6-9d-82-e5-bf-b5/" rel="next" title="元宵节杂念">
+                <i class="fa fa-chevron-left"></i> 元宵节杂念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/22/tx1-e6-9f-a5-e7-9c-8bcpu-gpu-e5-8d-a0-e7-94-a8/" rel="prev" title="TX1 查看cpu gpu占用">
+                TX1 查看cpu gpu占用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

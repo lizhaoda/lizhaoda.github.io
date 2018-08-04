@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="–&amp;gt;      &amp;lt;link rel=&amp;quot;dns-prefetch&amp;quot; href=&amp;quot;http://res.wx.qq.com/&amp;quot;&amp;gt;   &amp;lt;title&amp;gt;如果看了此文你还不懂傅里叶变换，那就过来掐死我吧&amp;lt;/title&amp;gt; html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:1">
+<meta name="keywords" content="杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如果看了此文你还不懂傅里叶变换，那就过来掐死我吧">
+<meta property="og:url" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="–&amp;gt;      &amp;lt;link rel=&amp;quot;dns-prefetch&amp;quot; href=&amp;quot;http://res.wx.qq.com/&amp;quot;&amp;gt;   &amp;lt;title&amp;gt;如果看了此文你还不懂傅里叶变换，那就过来掐死我吧&amp;lt;/title&amp;gt; html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_2-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_3-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_4-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_5-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_6-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_7-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_8-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_8-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_8-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_9-2.gif">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_10-2.gif">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_11-2.gif">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_12-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_13-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_14-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_15-2.gif">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_16-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_17-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_18-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_19-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_20-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_21-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_22-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_23-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_24-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_25-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_26-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_27-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_28-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_29-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_30-2.png">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_31-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_32-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0/_33-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_640-2.jpg">
+<meta property="og:updated_time" content="2018-08-04T06:14:34.967Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如果看了此文你还不懂傅里叶变换，那就过来掐死我吧">
+<meta name="twitter:description" content="–&amp;gt;      &amp;lt;link rel=&amp;quot;dns-prefetch&amp;quot; href=&amp;quot;http://res.wx.qq.com/&amp;quot;&amp;gt;   &amp;lt;title&amp;gt;如果看了此文你还不懂傅里叶变换，那就过来掐死我吧&amp;lt;/title&amp;gt; html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:1">
+<meta name="twitter:image" content="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0-2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如果看了此文你还不懂傅里叶变换，那就过来掐死我吧 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如果看了此文你还不懂傅里叶变换，那就过来掐死我吧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-23 00:51:38" itemprop="dateCreated datePublished" datetime="2016-10-23T00:51:38+08:00">2016-10-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-04 14:14:34" itemprop="dateModified" datetime="2018-08-04T14:14:34+08:00">2018-08-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>–>     </p>
+<pre><code>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;http://res.wx.qq.com/&quot;&gt;
+
+
+&lt;title&gt;如果看了此文你还不懂傅里叶变换，那就过来掐死我吧&lt;/title&gt;
+</code></pre><p>html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;line-height:1.6}body{-webkit-touch-callout:none;font-family:-apple-system-font,”Helvetica Neue”,”PingFang SC”,”Hiragino Sans GB”,”Microsoft YaHei”,sans-serif;background-color:#f3f3f3;line-height:inherit}body.rich_media_empty_extra{background-color:#fff}body.rich_media_empty_extra .rich_media_area_primary:before{display:none}h1,h2,h3,h4,h5,h6{font-weight:400;font-size:16px}<em>{margin:0;padding:0}a{color:#607fa6;text-decoration:none}.rich_media_inner{font-size:16px;word-wrap:break-word;-webkit-hyphens:auto;-ms-hyphens:auto;hyphens:auto}.rich_media_area_primary{position:relative;padding:20px 15px 15px;background-color:#fff}.rich_media_area_primary:before{content:” “;position:absolute;left:0;top:0;width:100%;height:1px;border-top:1px solid #e5e5e5;-webkit-transform-origin:0 0;transform-origin:0 0;-webkit-transform:scaleY(0.5);transform:scaleY(0.5);top:auto;bottom:-2px}.rich_media_area_primary .original_img_wrp{display:inline-block;font-size:0}.rich_media_area_primary .original_img_wrp .tips_global{display:block;margin-top:.5em;font-size:14px;text-align:right;width:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal}.rich_media_area_extra{padding:0 15px 0}.rich_media_title{margin-bottom:10px;line-height:1.4;font-weight:400;font-size:24px}.rich_media_meta_list{margin-bottom:18px;line-height:20px;font-size:0}.rich_media_meta_list em{font-style:normal}.rich_media_meta{display:inline-block;vertical-align:middle;margin-right:8px;margin-bottom:10px;font-size:16px}.meta_original_tag{display:inline-block;vertical-align:middle;padding:1px .5em;border:1px solid #9e9e9e;color:#8c8c8c;border-top-left-radius:20% 50%;-moz-border-radius-topleft:20% 50%;-webkit-border-top-left-radius:20% 50%;border-top-right-radius:20% 50%;-moz-border-radius-topright:20% 50%;-webkit-border-top-right-radius:20% 50%;border-bottom-left-radius:20% 50%;-moz-border-radius-bottomleft:20% 50%;-webkit-border-bottom-left-radius:20% 50%;border-bottom-right-radius:20% 50%;-moz-border-radius-bottomright:20% 50%;-webkit-border-bottom-right-radius:20% 50%;font-size:15px;line-height:1.1}.meta_enterprise_tag img{width:30px;height:30px!important;display:block;position:relative;margin-top:-3px;border:0}.rich_media_meta_text{color:#8c8c8c}span.rich_media_meta_nickname{display:none}.rich_media_thumb_wrp{margin-bottom:6px}.rich_media_thumb_wrp .original_img_wrp{display:block}.rich_media_thumb{display:block;width:100%}.rich_media_content{overflow:hidden;color:#3e3e3e}.rich_media_content </em>{max-width:100%!important;box-sizing:border-box!important;-webkit-box-sizing:border-box!important;word-wrap:break-word!important}.rich_media_content p{clear:both;min-height:1em;white-space:pre-wrap}.rich_media_content em{font-style:italic}.rich_media_content fieldset{min-width:0}.rich_media_content .list-paddingleft-2{padding-left:30px}.rich_media_content blockquote{margin:0;padding-left:10px;border-left:3px solid #dbdbdb}img{height:auto!important}@media(min-device-width:375px) and (max-device-width:667px) and (-webkit-min-device-pixel-ratio:2){.mm_appmsg .rich_media_inner,.mm_appmsg .rich_media_meta,.mm_appmsg .discuss_list,.mm_appmsg .rich_media_extra,.mm_appmsg .title_tips .tips{font-size:17px}.mm_appmsg .meta_original_tag{font-size:15px}}@media(min-device-width:414px) and (max-device-width:736px) and (-webkit-min-device-pixel-ratio:3){.mm_appmsg .rich_media_title{font-size:25px}}@media screen and (min-width:1024px){.rich_media{width:740px;margin-left:auto;margin-right:auto}.rich_media_inner{padding:20px}body{background-color:#fff}}@media screen and (min-width:1025px){body{font-family:”Helvetica Neue”,Helvetica,”Hiragino Sans GB”,”Microsoft YaHei”,Arial,sans-serif}.rich_media{position:relative}.rich_media_inner{background-color:#fff;padding-bottom:100px}}.radius_avatar{display:inline-block;background-color:#fff;padding:3px;border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;overflow:hidden;vertical-align:middle}.radius_avatar img{display:block;width:100%;height:100%;border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;background-color:#eee}.cell{padding:.8em 0;display:block;position:relative}.cell_hd,.cell_bd,.cell_ft{display:table-cell;vertical-align:middle;word-wrap:break-word;word-break:break-all;white-space:nowrap}.cell_primary{width:2000px;white-space:normal}.flex_cell{padding:10px 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.flex_cell_primary{width:100%;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;box-flex:1;flex:1}.original_tool_area{display:block;padding:.75em 1em 0;-webkit-tap-highlight-color:rgba(0,0,0,0);color:#3e3e3e;border:1px solid #eaeaea;margin:20px 0}.original_tool_area .tips_global{position:relative;padding-bottom:.5em;font-size:15px}.original_tool_area .tips_global:after{content:” “;position:absolute;left:0;bottom:0;right:0;height:1px;border-bottom:1px solid #dbdbdb;-webkit-transform-origin:0 100%;transform-origin:0 100%;-webkit-transform:scaleY(0.5);transform:scaleY(0.5)}.original_tool_area .radius_avatar{width:27px;height:27px;padding:0;margin-right:.5em}.original_tool_area .radius_avatar img{height:100%!important}.original_tool_area .flex_cell_bd{width:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal}.original_tool_area .flex_cell_ft{font-size:14px;color:#8c8c8c;padding-left:1em;white-space:nowrap}.original_tool_area .icon_access:after{content:” “;display:inline-block;height:8px;width:8px;border-width:1px 1px 0 0;border-color:#cbcad0;border-style:solid;transform:matrix(0.71,0.71,-0.71,0.71,0,0);-ms-transform:matrix(0.71,0.71,-0.71,0.71,0,0);-webkit-transform:matrix(0.71,0.71,-0.71,0.71,0,0);position:relative;top:-2px;top:-1px}.weui_loading{width:20px;height:20px;display:inline-block;vertical-align:middle;-webkit-animation:weuiLoading 1s steps(12,end) infinite;animation:weuiLoading 1s steps(12,end) infinite;background:transparent url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iciIgd2lkdGg9JzEyMHB4JyBoZWlnaHQ9JzEyMHB4JyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJub25lIiBjbGFzcz0iYmsiPjwvcmVjdD4KICAgIDxyZWN0IHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjRTlFOUU5JwogICAgICAgICAgdHJhbnNmb3JtPSdyb3RhdGUoMCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+CiAgICA8L3JlY3Q+CiAgICA8cmVjdCB4PSc0Ni41JyB5PSc0MCcgd2lkdGg9JzcnIGhlaWdodD0nMjAnIHJ4PSc1JyByeT0nNScgZmlsbD0nIzk4OTY5NycKICAgICAgICAgIHRyYW5zZm9ybT0ncm90YXRlKDMwIDUwIDUwKSB0cmFuc2xhdGUoMCAtMzApJz4KICAgICAgICAgICAgICAgICByZXBlYXRDb3VudD0naW5kZWZpbml0ZScvPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyM5Qjk5OUEnCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSg2MCA1MCA1MCkgdHJhbnNsYXRlKDAgLTMwKSc+CiAgICAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9J2luZGVmaW5pdGUnLz4KICAgIDwvcmVjdD4KICAgIDxyZWN0IHg9JzQ2LjUnIHk9JzQwJyB3aWR0aD0nNycgaGVpZ2h0PScyMCcgcng9JzUnIHJ5PSc1JyBmaWxsPScjQTNBMUEyJwogICAgICAgICAgdHJhbnNmb3JtPSdyb3RhdGUoOTAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNBQkE5QUEnCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgxMjAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNCMkIyQjInCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgxNTAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNCQUI4QjknCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgxODAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNDMkMwQzEnCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgyMTAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNDQkNCQ0InCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgyNDAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNEMkQyRDInCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgyNzAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNEQURBREEnCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgzMDAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0PgogICAgPHJlY3QgeD0nNDYuNScgeT0nNDAnIHdpZHRoPSc3JyBoZWlnaHQ9JzIwJyByeD0nNScgcnk9JzUnIGZpbGw9JyNFMkUyRTInCiAgICAgICAgICB0cmFuc2Zvcm09J3JvdGF0ZSgzMzAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0Pgo8L3N2Zz4=) no-repeat;-webkit-background-size:100%;background-size:100%}@-webkit-keyframes weuiLoading{0%{-webkit-transform:rotate3d(0,0,1,0deg)}100%{-webkit-transform:rotate3d(0,0,1,360deg)}}@keyframes weuiLoading{0%{-webkit-transform:rotate3d(0,0,1,0deg)}100%{-webkit-transform:rotate3d(0,0,1,360deg)}}.gif_img_wrp{display:inline-block;font-size:0;position:relative;font-weight:400;font-style:normal;text-indent:0;text-shadow:none 1px 1px rgba(0,0,0,0.5)}.gif_img_wrp img{vertical-align:top}.gif_img_tips{background:rgba(0,0,0,0.6)!important;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=’#99000000’,endcolorstr = ‘#99000000’);border-top-left-radius:1.2em 50%;-moz-border-radius-topleft:1.2em 50%;-webkit-border-top-left-radius:1.2em 50%;border-top-right-radius:1.2em 50%;-moz-border-radius-topright:1.2em 50%;-webkit-border-top-right-radius:1.2em 50%;border-bottom-left-radius:1.2em 50%;-moz-border-radius-bottomleft:1.2em 50%;-webkit-border-bottom-left-radius:1.2em 50%;border-bottom-right-radius:1.2em 50%;-moz-border-radius-bottomright:1.2em 50%;-webkit-border-bottom-right-radius:1.2em 50%;line-height:2.3;font-size:11px;color:#fff;text-align:center;position:absolute;bottom:10px;left:10px;min-width:65px}.gif_img_tips.loading{min-width:75px}.gif_img_tips i{vertical-align:middle;margin:-0.2em .73em 0 -2px}.gif_img_play_arrow{display:inline-block;width:0;height:0;border-width:8px;border-style:dashed;border-color:transparent;border-right-width:0;border-left-color:#fff;border-left-style:solid;border-width:5px 0 5px 8px}.gif_img_loading{width:14px;height:14px}i.gif_img_loading{margin-left:-4px}.rich_media_global_msg{position:fixed;top:0;left:0;right:0;padding:1em 35px 1em 15px;z-index:1;background-color:#c6e0f8;color:#8c8c8c;font-size:13px}.rich_media_global_msg .icon_closed{position:absolute;right:15px;top:50%;margin-top:-5px;line-height:300px;overflow:hidden;-webkit-tap-highlight-color:rgba(0,0,0,0);background:transparent url(“fb9af943-b908-4569-ab61-347599262558_files/icon_appmsg_msg_closed_sprite.2x.png”) no-repeat 0 0;width:11px;height:11px;vertical-align:middle;display:inline-block;-webkit-background-size:100% auto;background-size:100% auto}.rich_media_global_msg .icon_closed:active{background-position:0 -17px}.preview_appmsg .rich_media_title{margin-top:1.9em}@media screen and (min-width:1024px){.rich_media_global_msg{position:relative;margin:0 20px}.preview_appmsg .rich_media_title{margin-top:0}} <pre><code>&lt;/style&gt; </code></pre> <!--\[if lt IE 9\]> <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh\_CN/htmledition/style/page/appmsg/page\_mp\_article\_improve\_pc2c9cd6.css"> <!\[endif\]--> <pre><code>&lt;/head&gt; &lt;body id=”activity-detail” ontouchstart=””&gt; &lt;div id=”js_article” &gt; &lt;div id=”js_top_ad_area” &gt; &lt;/div&gt; &lt;div &gt; &lt;div id=”page-content”&gt; &lt;div id=”img-content” &gt; &lt;h2 id=”activity-name”&gt; 【完整版】如果看了此文你还不懂傅里叶变换，那就过来掐死我吧 &lt;/h2&gt; &lt;div &gt; &lt;em id=”post-date” &gt;2016-10-02&lt;/em&gt; &lt;a href=”” id=”post-user”&gt;Python开发者&lt;/a&gt; &lt;span &gt;Python开发者&lt;/span&gt; &lt;div id=”js_profile_qrcode” &gt; &lt;div &gt; &lt;strong &gt;Python开发者&lt;/strong&gt; &lt;img id=”js_profile_qrcode_img” src=”” alt=””&gt; &lt;p &gt; &lt;label &gt;微信号&lt;/label&gt; &lt;span &gt;PythonCoder&lt;/span&gt; &lt;/p&gt; &lt;p &gt; &lt;label &gt;功能介绍&lt;/label&gt; &lt;span &gt;人生苦短，我用&amp;nbsp;Python。伯乐在线旗下账号「Python开发者」分享&amp;nbsp;Python&amp;nbsp;相关的技术文章、工具资源、精选课程、热点资讯等。&lt;/span&gt; &lt;/p&gt; &lt;/div&gt; &lt;span id=”js_profile_arrow_wrp”&gt; &lt;i &gt;&lt;/i&gt; &lt;i &gt;&lt;/i&gt; &lt;/span&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=”js_content”&gt; &lt;p &gt;&lt;span &gt;（点击&lt;/span&gt;&lt;span &gt;上方公众号&lt;/span&gt;&lt;span &gt;，可快速关注）&lt;/span&gt;&lt;/p&gt; </code></pre> <br> <strong><a href="http://mp.weixin.qq.com/s?\_\_biz=MzA4MjEyNTA5Mw==&mid=2652564158&idx=1&sn=fd6914322a72a33ab8d518a10196e0a9&chksm=8464c2f4b3134be2b89de2a52537181e410907b1bcbaf6b76d55a2efd67d6450e6bacc90cdde&scene=21#wechat\_redirect" target="\_blank" data\_ue\_src="http://mp.weixin.qq.com/s?\_\_biz=MzA4MjEyNTA5Mw==&amp;mid=2652564158&amp;idx=1&amp;sn=fd6914322a72a33ab8d518a10196e0a9&amp;chksm=8464c2f4b3134be2b89de2a52537181e410907b1bcbaf6b76d55a2efd67d6450e6bacc90cdde&amp;scene=21#wechat\_redirect">10月1日推荐了一篇傅里叶变换的文章后</a></strong><span><strong>，有朋友留言说对傅里叶变换的概念还不清楚，所以今天我们推荐这篇文章。</strong></span> <img data-ratio="0.775" data-w="520" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0-2.jpg"></p> <pre>作 者：韩 昊 知 乎：Heinrich 微 博：@花生油工人 知乎专栏：与时间无关的故事 谨以此文献给大连海事大学的吴楠老师，柳晓鸣老师，王新年老师以及张晶泊老师。 转载的同学请保留上面这句话，谢谢。如果还能保留文章来源就更感激不尽了。 ——更新于2014.6.6，想直接看更新的同学可以直接跳到第四章————</pre> <p><span><br></span></p> <p><span><br></span></p> <p><span>　　我保证这篇文章和你以前看过的所有文章都不同，这是 12 年还在果壳的时候写的，但是当时没有来得及写完就出国了……于是拖了两年，嗯，我是拖延症患者……</span><br></p> <p>　　这篇文章的核心思想就是：</p> <p>　　<strong>要让读者在不看任何数学公式的情况下理解傅里叶分析。</strong></p> <p>　　傅里叶分析不仅仅是一个数学工具，更是一种可以彻底颠覆一个人以前世界观的思维模式。但不幸的是，傅里叶分析的公式看起来太复杂了，所以很多大一新生上来就懵圈并从此对它深恶痛绝。老实说，这么有意思的东西居然成了大学里的杀手课程，不得不归咎于编教材的人实在是太严肃了。（您把教材写得好玩一点会死吗？会死吗？）所以我一直想写一个有意思的文章来解释傅里叶分析，有可能的话高中生都能看懂的那种。所以，不管读到这里的您从事何种工作，我保证您都能看懂，并且一定将体会到通过傅里叶分析看到世界另一个样子时的快感。至于对于已经有一定基础的朋友，也希望不要看到会的地方就急忙往后翻，仔细读一定会有新的发现。</p> <p>　　————以上是定场诗————</p> <p>　　下面进入正题：</p> <p>　　抱歉，还是要啰嗦一句：其实学习本来就不是易事，我写这篇文章的初衷也是希望大家学习起来更加轻松，充满乐趣。但是千万！千万不要把这篇文章收藏起来，或是存下地址，心里想着：以后有时间再看。这样的例子太多了，也许几年后你都没有再打开这个页面。无论如何，耐下心，读下去。这篇文章要比读课本要轻松、开心得多……</p> <p>　　p.s.本文无论是 cos 还是 sin，都统一用“正弦波”（Sine Wave）一词来代表简谐波。</p> <p>　　<strong>一、什么是频域</strong></p> <p>　　从我们出生，我们看到的世界都以时间贯穿，股票的走势、人的身高、汽车的轨迹都会随着时间发生改变。这种以时间作为参照来观察动态世界的方法我们称其为时域分析。而我们也想当然的认为，世间万物都在随着时间不停的改变，并且永远不会静止下来。但如果我告诉你，用另一种方法来观察世界的话，你会发现世界是永恒不变的，你会不会觉得我疯了？我没有疯，这个静止的世界就叫做频域。</p> <p>　　先举一个公式上并非很恰当，但意义上再贴切不过的例子：</p> <p>　　在你的理解中，一段音乐是什么呢？</p> <p><img data-ratio="0.23178807947019867" data-type="jpeg" data-w="453" width="453" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_2-2.jpg"></p> <p>　　这是我们对音乐最普遍的理解，一个随着时间变化的震动。但我相信对于乐器小能手们来说，音乐更直观的理解是这样的：</p> <p><img data-ratio="0.2333931777378815" data-type="jpeg" data-w="557" width="557" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_3-2.jpg"></p> <p>　　好的！下课，同学们再见。</p> <p>　　是的，其实这一段写到这里已经可以结束了。上图是音乐在时域的样子，而下图则是音乐在频域的样子。所以频域这一概念对大家都从不陌生，只是从来没意识到而已。</p> <p>　　现在我们可以回过头来重新看看一开始那句痴人说梦般的话：世界是永恒的。</p> <p>　　将以上两图简化：</p> <p>　　时域：</p> <p><img data-ratio="0.55" data-type="jpeg" data-w="200" width="200" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_4-2.jpg"><br>频域：</p> <p><img data-ratio="1.4525547445255473" data-type="jpeg" data-w="137" width="137" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_5-2.jpg"></p> <p><br></p> <p>　　在时域，我们观察到钢琴的琴弦一会上一会下的摆动，就如同一支股票的走势；而在频域，只有那一个永恒的音符。</p> <p>　　所以</p> <p>　　<strong>你眼中看似落叶纷飞变化无常的世界，实际只是躺在上帝怀中一份早已谱好的乐章。</strong></p> <p>　　抱歉，这不是一句鸡汤文，而是黑板上确凿的公式：傅里叶同学告诉我们，任何周期函数，都可以看作是不同振幅，不同相位正弦波的叠加。在第一个例子里我们可以理解为，利用对不同琴键不同力度，不同时间点的敲击，可以组合出任何一首乐曲。</p> <p>　　而贯穿时域与频域的方法之一，就是传中说的傅里叶分析。傅里叶分析可分为傅里叶级数（Fourier Serie）和傅里叶变换(Fourier Transformation)，我们从简单的开始谈起。</p> <p>　　<strong>二、傅里叶级数(Fourier Series)的频谱</strong></p> <p>　　还是举个栗子并且有图有真相才好理解。</p> <p>　　如果我说我能用前面说的正弦曲线波叠加出一个带 90 度角的矩形波来，你会相信吗？你不会，就像当年的我一样。但是看看下图：</p> <p><img data-ratio="0.77" data-type="jpeg" data-w="600" height="424" width="551" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_6-2.jpg"></p> <p>　　第一幅图是一个郁闷的正弦波 cos（x）</p> <p>　　第二幅图是 2 个卖萌的正弦波的叠加 cos (x) +a.cos (3x)</p> <p>　　第三幅图是 4 个发春的正弦波的叠加</p> <p>　　第四幅图是 10 个便秘的正弦波的叠加</p> <p>　　随着正弦波数量逐渐的增长，他们最终会叠加成一个标准的矩形，大家从中体会到了什么道理？</p> <p>　　（只要努力，弯的都能掰直！）</p> <p>　　随着叠加的递增，所有正弦波中上升的部分逐渐让原本缓慢增加的曲线不断变陡，而所有正弦波中下降的部分又抵消了上升到最高处时继续上升的部分使其变为水平线。一个矩形就这么叠加而成了。但是要多少个正弦波叠加起来才能形成一个标准 90 度角的矩形波呢？不幸的告诉大家，答案是无穷多个。（上帝：我能让你们猜着我？）</p> <p>　　不仅仅是矩形，你能想到的任何波形都是可以如此方法用正弦波叠加起来的。这是没</p> <p>　　有接触过傅里叶分析的人在直觉上的第一个难点，但是一旦接受了这样的设定，游戏就开始有意思起来了。</p> <p>　　还是上图的正弦波累加成矩形波，我们换一个角度来看看：</p> <p><img data-ratio="1.6107142857142858" data-type="jpeg" data-w="560" width="560" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_7-2.jpg"></p> <p>　　在这几幅图中，最前面黑色的线就是所有正弦波叠加而成的总和，也就是越来越接近矩形波的那个图形。而后面依不同颜色排列而成的正弦波就是组合为矩形波的各个分量。这些正弦波按照频率从低到高从前向后排列开来，而每一个波的振幅都是不同的。一定有细心的读者发现了，每两个正弦波之间都还有一条直线，那并不是分割线，而是振幅为 0 的正弦波！也就是说，为了组成特殊的曲线，有些正弦波成分是不需要的。</p> <p>　　这里，不同频率的正弦波我们成为频率分量。</p> <p>　　好了，关键的地方来了！！</p> <p>　　如果我们把第一个频率最低的频率分量看作“1”，我们就有了构建频域的最基本单元。</p> <p>　　对于我们最常见的有理数轴，数字“1”就是有理数轴的基本单元。</p> <p>　　时域的基本单元就是“1 秒”，如果我们将一个角频率为<img data-ratio="0.625" data-type="png" data-w="16" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_8-2.png">的正弦波 cos（<img data-ratio="0.625" data-type="png" data-w="16" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_8-2.png">t）看作基础，那么频域的基本单元就是<img data-ratio="0.625" data-type="png" data-w="16" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_8-2.png"><br>。</p> <p>　　有了“1”，还要有“0”才能构成世界，那么频域的“0”是什么呢？cos（0t）就是一个周期无限长的正弦波，也就是一条直线！所以在频域，0 频率也被称为直流分量，在傅里叶级数的叠加中，它仅仅影响全部波形相对于数轴整体向上或是向下而不改变波的形状。</p> <p>　　接下来，让我们回到初中，回忆一下已经死去的八戒，啊不，已经死去的老师是怎么定义正弦波的吧。</p> <p><img data-ratio="0.35892857142857143" data-type="gif" data-w="560" width="560" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_9-2.gif"></p> <p>　　正弦波就是一个圆周运动在一条直线上的投影。所以频域的基本单元也可以理解为一个始终在旋转的圆</p> <p><br><img data-ratio="1" data-type="gif" data-w="256" height="256" width="256" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_10-2.gif"></p> <p>　　想看动图的同学请戳这里：</p> <p>　　File:Fourier series square wave circles animation.gif</p> <p><img data-ratio="1" data-type="gif" data-w="256" height="256" width="256" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_11-2.gif"></p> <p>　　以及这里：</p> <p>　　File:Fourier series sawtooth wave circles animation.gif</p> <p>　　点出去的朋友不要被 wiki 拐跑了，wiki 写的哪有这里的文章这么没节操是不是。</p> <p>　　介绍完了频域的基本组成单元，我们就可以看一看一个矩形波，在频域里的另一个模样了：</p> <p><img data-ratio="0.705" data-type="png" data-w="600" height="413" width="586" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_12-2.png"></p> <p>　　这是什么奇怪的东西？</p> <p>　　这就是矩形波在频域的样子，是不是完全认不出来了？教科书一般就给到这里然后留给了读者无穷的遐想，以及无穷的吐槽，其实教科书只要补一张图就足够了：频域图像，也就是俗称的频谱，就是——</p> <p><img data-ratio="0.45" data-type="jpeg" data-w="600" height="226" width="503" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_13-2.jpg"></p> <p>　　再清楚一点：</p> <p><img data-ratio="0.6016666666666667" data-type="jpeg" data-w="600" height="369" width="613" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_14-2.jpg"></p> <p>　　可以发现，在频谱中，偶数项的振幅都是0，也就对应了图中的彩色直线。振幅为 0 的正弦波。</p> <p><img data-ratio="0.8" data-type="gif" data-w="300" height="240" width="300" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_15-2.gif"></p> <p>　　动图请戳：</p> <p>　　File:Fourier series and transform.gif</p> <p>　　老实说，在我学傅里叶变换时，维基的这个图还没有出现，那时我就想到了这种表达方法，而且，后面还会加入维基没有表示出来的另一个谱——相位谱。</p> <p>　　但是在讲相位谱之前，我们先回顾一下刚刚的这个例子究竟意味着什么。记得前面说过的那句“世界是静止的”吗？估计好多人对这句话都已经吐槽半天了。想象一下，世界上每一个看似混乱的表象，实际都是一条时间轴上不规则的曲线，但实际这些曲线都是由这些无穷无尽的正弦波组成。我们看似不规律的事情反而是规律的正弦波在时域上的投影，而正弦波又是一个旋转的圆在直线上的投影。那么你的脑海中会产生一个什么画面呢？</p> <p>　　我们眼中的世界就像皮影戏的大幕布，幕布的后面有无数的齿轮，大齿轮带动小齿轮，小齿轮再带动更小的。在最外面的小齿轮上有一个小人——那就是我们自己。我们只看到这个小人毫无规律的在幕布前表演，却无法预测他下一步会去哪。而幕布后面的齿轮却永远一直那样不停的旋转，永不停歇。这样说来有些宿命论的感觉。说实话，这种对人生的描绘是我一个朋友在我们都是高中生的时候感叹的，当时想想似懂非懂，直到有一天我学到了傅里叶级数……</p> <p>　　<strong>三、傅里叶级数（Fourier Series）的相位谱</strong></p> <p>　　上一章的关键词是：从侧面看。这一章的关键词是：从下面看。</p> <p>　　在这一章最开始，我想先回答很多人的一个问题：傅里叶分析究竟是干什么用的？这段相对比较枯燥，已经知道了的同学可以直接跳到下一个分割线。</p> <p>　　先说一个最直接的用途。无论听广播还是看电视，我们一定对一个词不陌生——频道。频道频道，就是频率的通道，不同的频道就是将不同的频率作为一个通道来进行信息传输。下面大家尝试一件事：</p> <p>　　先在纸上画一个 sin（x），不一定标准，意思差不多就行。不是很难吧。</p> <p>　　好，接下去画一个 sin（3x）+sin（5x）的图形。</p> <p>　　别说标准不标准了，曲线什么时候上升什么时候下降你都不一定画的对吧？</p> <p>　　好，画不出来不要紧，我把 sin（3x）+sin（5x）的曲线给你，但是前提是你不知道这个曲线的方程式，现在需要你把 sin（5x）给我从图里拿出去，看看剩下的是什么。这基本是不可能做到的。</p> <p>　　但是在频域呢？则简单的很，无非就是几条竖线而已。</p> <p>　　所以很多在时域看似不可能做到的数学操作，在频域相反很容易。这就是需要傅里叶变换的地方。尤其是从某条曲线中去除一些特定的频率成分，这在工程上称为滤波，是信号处理最重要的概念之一，只有在频域才能轻松的做到。</p> <p>　　再说一个更重要，但是稍微复杂一点的用途——求解微分方程。（这段有点难度，看不懂的可以直接跳过这段）微分方程的重要性不用我过多介绍了。各行各业都用的到。但是求解微分方程却是一件相当麻烦的事情。因为除了要计算加减乘除，还要计算微分积分。而傅里叶变换则可以让微分和积分在频域中变为乘法和除法，大学数学瞬间变小学算术有没有。</p> <p>　　傅里叶分析当然还有其他更重要的用途，我们随着讲随着提。</p> <p>　　————————————————————————————————————</p> <p>　　下面我们继续说相位谱：</p> <p>　　通过时域到频域的变换，我们得到了一个从侧面看的频谱，但是这个频谱并没有包含时域中全部的信息。因为频谱只代表每一个对应的正弦波的振幅是多少，而没有提到相位。基础的正弦波A.sin (wt+θ)中，振幅，频率，相位缺一不可，不同相位决定了波的位置，所以对于频域分析，仅仅有频谱（振幅谱）是不够的，我们还需要一个相位谱。那么这个相位谱在哪呢？我们看下图，这次为了避免图片太混论，我们用 7 个波叠加的图。</p> <p><img data-ratio="1.0696428571428571" data-type="jpeg" data-w="560" width="560" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_16-2.jpg"></p> <p>　　鉴于正弦波是周期的，我们需要设定一个用来标记正弦波位置的东西。在图中就是那些小红点。小红点是距离频率轴最近的波峰，而这个波峰所处的位置离频率轴有多远呢？为了看的更清楚，我们将红色的点投影到下平面，投影点我们用粉色点来表示。当然，这些粉色的点只标注了波峰距离频率轴的距离，并不是相位。</p> <p><img data-ratio="1.0035714285714286" data-type="png" data-w="560" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_17-2.png"></p> <p>　　这里需要纠正一个概念：时间差并不是相位差。如果将全部周期看作 2Pi 或者 360 度的话，相位差则是时间差在一个周期中所占的比例。我们将时间差除周期再乘 2Pi，就得到了相位差。</p> <p>　　在完整的立体图中，我们将投影得到的时间差依次除以所在频率的周期，就得到了最下面的相位谱。所以，频谱是从侧面看，相位谱是从下面看。下次偷看女生裙底被发现的话，可以告诉她：“对不起，我只是想看看你的相位谱。”</p> <p>　　注意到，相位谱中的相位除了0，就是 Pi。因为 cos（t+Pi）=-cos（t），所以实际上相位为 Pi 的波只是上下翻转了而已。对于周期方波的傅里叶级数，这样的相位谱已经是很简单的了。另外值得注意的是，由于 cos（t+2Pi）=cos（t），所以相位差是周期的，pi 和 3pi，5pi，7pi 都是相同的相位。人为定义相位谱的值域为(-pi，pi]，所以图中的相位差均为 Pi。</p> <p>　　最后来一张大集合：</p> <p><img data-ratio="0.8283333333333334" data-type="jpeg" data-w="600" height="490" width="593" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_18-2.jpg"></p> <p>　　<strong>四、傅里叶变换（Fourier Tranformation）</strong></p> <p>　　相信通过前面三章，大家对频域以及傅里叶级数都有了一个全新的认识。但是文章在一开始关于钢琴琴谱的例子我曾说过，这个栗子是一个公式错误，但是概念典型的例子。所谓的公式错误在哪里呢？</p> <p>　　傅里叶级数的本质是将一个周期的信号分解成无限多分开的（离散的）正弦波，但是宇宙似乎并不是周期的。曾经在学数字信号处理的时候写过一首打油诗：</p> <p>　　<strong>往昔连续非周期，</strong></p> <p>　　<strong>回忆周期不连续，</strong></p> <p>　　<strong>任你 ZT、DFT，</strong></p> <p>　　<strong>还原不回去。</strong></p> <p>　　（请无视我渣一样的文学水平……）</p> <p>　　在这个世界上，有的事情一期一会，永不再来，并且时间始终不曾停息地将那些刻骨铭心的往昔连续的标记在时间点上。但是这些事情往往又成为了我们格外宝贵的回忆，在我们大脑里隔一段时间就会周期性的蹦出来一下，可惜这些回忆都是零散的片段，往往只有最幸福的回忆，而平淡的回忆则逐渐被我们忘却。因为，往昔是一个连续的非周期信号，而回忆是一个周期离散信号。</p> <p>　　是否有一种数学工具将连续非周期信号变换为周期离散信号呢？抱歉，真没有。</p> <p>　　比如傅里叶级数，在时域是一个周期且连续的函数，而在频域是一个非周期离散的函数。这句话比较绕嘴，实在看着费事可以干脆回忆第一章的图片。</p> <p>　　而在我们接下去要讲的傅里叶变换，则是将一个时域非周期的连续信号，转换为一个在频域非周期的连续信号。</p> <p>　　算了，还是上一张图方便大家理解吧：</p> <p><img data-ratio="0.49833333333333335" data-type="jpeg" data-w="600" height="318" width="638" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_19-2.jpg"></p> <p>　　或者我们也可以换一个角度理解：傅里叶变换实际上是对一个周期无限大的函数进行傅里叶变换。</p> <p>　　所以说，钢琴谱其实并非一个连续的频谱，而是很多在时间上离散的频率，但是这样的一个贴切的比喻真的是很难找出第二个来了。</p> <p>　　因此在傅里叶变换在频域上就从离散谱变成了连续谱。那么连续谱是什么样子呢？</p> <p>　　<strong>你见过大海么？</strong></p> <p>　　为了方便大家对比，我们这次从另一个角度来看频谱，还是傅里叶级数中用到最多的那幅图，我们从频率较高的方向看。</p> <p><img data-ratio="0.47833333333333333" data-type="jpeg" data-w="600" height="250" width="522" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_20-2.jpg"></p> <p>　　以上是离散谱，那么连续谱是什么样子呢？</p> <p>　　尽情的发挥你的想象，想象这些离散的正弦波离得越来越近，逐渐变得连续……</p> <p>　　直到变得像波涛起伏的大海：</p> <p><img data-ratio="0.5266666666666666" data-type="jpeg" data-w="600" height="330" width="627" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_21-2.jpg"></p> <p>　　很抱歉，为了能让这些波浪更清晰的看到，我没有选用正确的计算参数，而是选择了一些让图片更美观的参数，不然这图看起来就像屎一样了。</p> <p>　　不过通过这样两幅图去比较，大家应该可以理解如何从离散谱变成了连续谱的了吧？原来离散谱的叠加，变成了连续谱的累积。所以在计算上也从求和符号变成了积分符号。</p> <p>　　不过，这个故事还没有讲完，接下去，我保证让你看到一幅比上图更美丽壮观的图片，但是这里需要介绍到一个数学工具才能然故事继续，这个工具就是——</p> <p>　　<strong>五、宇宙耍帅第一公式：欧拉公式</strong></p> <p>　　虚数i这个概念大家在高中就接触过，但那时我们只知道它是-1 的平方根，可是它真正的意义是什么呢?</p> <p><img data-ratio="0.2" data-type="jpeg" data-w="600" height="122" width="610" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_22-2.jpg"><br>这里有一条数轴，在数轴上有一个红色的线段，它的长度是1。当它乘以 3 的时候，它的长度发生了变化，变成了蓝色的线段，而当它乘以-1 的时候，就变成了绿色的线段，或者说线段在数轴上围绕原点旋转了 180 度。</p> <p>　　我们知道乘-1 其实就是乘了两次 i 使线段旋转了 180 度，那么乘一次 i 呢——答案很简单——旋转了 90 度。</p> <p><img data-ratio="0.57" data-type="jpeg" data-w="600" width="600" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_23-2.jpg"></p> <p>　　同时，我们获得了一个垂直的虚数轴。实数轴与虚数轴共同构成了一个复数的平面，也称复平面。这样我们就了解到，乘虚数i的一个功能——旋转。</p> <p>　　现在，就有请宇宙第一耍帅公式欧拉公式隆重登场——</p> <p><img data-ratio="0.12422360248447205" data-type="png" data-w="161" width="161" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_24-2.png"><br>这个公式在数学领域的意义要远大于傅里叶分析，但是乘它为宇宙第一耍帅公式是因为它的特殊形式——当x等于 Pi 的时候。</p> <p><img data-ratio="0.21505376344086022" data-type="png" data-w="93" width="93" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_25-2.png"><br>经常有理工科的学生为了跟妹子表现自己的学术功底，用这个公式来给妹子解释数学之美：”石榴姐你看，这个公式里既有自然底数e，自然数 1 和0，虚数i还有圆周率 pi，它是这么简洁，这么美丽啊！“但是姑娘们心里往往只有一句话：”臭屌丝……“</p> <p>　　这个公式关键的作用，是将正弦波统一成了简单的指数形式。我们来看看图像上的涵义：</p> <p><img data-ratio="0.49833333333333335" data-type="jpeg" data-w="600" height="307" width="616" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_26-2.jpg"></p> <p>　　欧拉公式所描绘的，是一个随着时间变化，在复平面上做圆周运动的点，随着时间的改变，在时间轴上就成了一条螺旋线。如果只看它的实数部分，也就是螺旋线在左侧的投影，就是一个最基础的余弦函数。而右侧的投影则是一个正弦函数。</p> <p>　　关于复数更深的理解，大家可以参考：</p> <p>　　复数的物理意义是什么？</p> <p>　　这里不需要讲的太复杂，足够让大家理解后面的内容就可以了。</p> <p>　　<strong>六、指数形式的傅里叶变换</strong></p> <p>　　有了欧拉公式的帮助，我们便知道：正弦波的叠加，也可以理解为螺旋线的叠加在实数空间的投影。而螺旋线的叠加如果用一个形象的栗子来理解是什么呢？</p> <p><strong>　　光波</strong></p> <p>　　高中时我们就学过，自然光是由不同颜色的光叠加而成的，而最著名的实验就是牛顿师傅的三棱镜实验：</p> <p><img data-ratio="0.628158844765343" data-type="jpeg" data-w="277" width="277" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_27-2.jpg"></p> <p>　　所以其实我们在很早就接触到了光的频谱，只是并没有了解频谱更重要的意义。</p> <p>　　但不同的是，傅里叶变换出来的频谱不仅仅是可见光这样频率范围有限的叠加，而是频率从 0 到无穷所有频率的组合。</p> <p>　　这里，我们可以用两种方法来理解正弦波：</p> <p>　　第一种前面已经讲过了，就是螺旋线在实轴的投影。</p> <p>　　另一种需要借助欧拉公式的另一种形式去理解：</p> <p><img data-ratio="0.11920529801324503" data-type="png" data-w="151" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_28-2.png"><br><img data-ratio="0.1125" data-type="png" data-w="160" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_29-2.png"></p> <p>　　将以上两式相加再除2，得到：</p> <p><img data-ratio="0.28125" data-type="png" data-w="128" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_30-2.png"></p> <p>　　这个式子可以怎么理解呢？</p> <p>　　我们刚才讲过，e^(it)可以理解为一条逆时针旋转的螺旋线，那么e^(-it)则可以理解为一条顺时针旋转的螺旋线。而 cos (t)则是这两条旋转方向不同的螺旋线叠加的一半，因为这两条螺旋线的虚数部分相互抵消掉了！</p> <p>　　举个例子的话，就是极化方向不同的两束光波，磁场抵消，电场加倍。</p> <p>　　这里，逆时针旋转的我们称为正频率，而顺时针旋转的我们称为负频率（注意不是复频率）。</p> <p>　　好了，刚才我们已经看到了大海——连续的傅里叶变换频谱，现在想一想，连续的螺旋线会是什么样子：</p> <p>　　想象一下再往下翻：</p> <p><img data-ratio="0.775" data-type="jpeg" data-w="800" height="466" width="602" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_31-2.jpg"></p> <p>　　是不是很漂亮？</p> <p>　　你猜猜，这个图形在时域是什么样子？</p> <p><img data-ratio="0.785" data-type="jpeg" data-w="600" height="476" width="606" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_32-2.jpg"></p> <p>　　哈哈，是不是觉得被狠狠扇了一个耳光。数学就是这么一个把简单的问题搞得很复杂的东西。</p> <p>　　顺便说一句，那个像大海螺一样的图，为了方便观看，我仅仅展示了其中正频率的部分，负频率的部分没有显示出来。</p> <p>　　如果你认真去看，海螺图上的每一条螺旋线都是可以清楚的看到的，每一条螺旋线都有着不同的振幅（旋转半径），频率（旋转周期）以及相位。而将所有螺旋线连成平面，就是这幅海螺图了。</p> <p>　　好了，讲到这里，相信大家对傅里叶变换以及傅里叶级数都有了一个形象的理解了，我们最后用一张图来总结一下：</p> <p><img data-ratio="1.6333333333333333" data-type="jpeg" data-w="600" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_0\_33-2.jpg"></p> <p>　　好了，傅里叶的故事终于讲完了，下面来讲讲我的故事：</p> <p>　　这篇文章第一次被卸下来的地方你们绝对猜不到在哪，是在一张高数考试的卷子上。当时为了刷分，我重修了高数（上），但是后来时间紧压根没复习，所以我就抱着裸考的心态去了考场。但是到了考场我突然意识到，无论如何我都不会比上次考的更好了，所以干脆写一些自己对于数学的想法吧。于是用了一个小时左右的时间在试卷上洋洋洒洒写了本文的第一草稿。</p> <p>　　你们猜我的了多少分？</p> <p>　　6 分</p> <p>　　没错，就是这个数字。而这 6 分的成绩是因为最后我实在无聊，把选择题全部填上了C，应该是中了两道，得到了这宝贵的 6 分。说真的，我很希望那张卷子还在，但是应该不太可能了。</p> <p>　　那么你们猜猜我第一次信号与系统考了多少分呢？</p> <p>　　45 分</p> <p>　　没错，刚刚够参加补考的。但是我心一横没去考，决定重修。因为那个学期在忙其他事情，学习真的就抛在脑后了。但是我知道这是一门很重要的课，无论如何我要吃透它。说真的，信号与系统这门课几乎是大部分工科课程的基础，尤其是通信专业。</p> <p>　　在重修的过程中，我仔细分析了每一个公式，试图给这个公式以一个直观的理解。虽然我知道对于研究数学的人来说，这样的学习方法完全没有前途可言，因为随着概念愈加抽象，维度越来越高，这种图像或者模型理解法将完全丧失作用。但是对于一个工科生来说，足够了。</p> <p>　　后来来了德国，这边学校要求我重修信号与系统时，我彻底无语了。但是没办法，德国人有时对中国人就是有种藐视，觉得你的教育不靠谱。所以没办法，再来一遍吧。</p> <p>　　这次，我考了满分，而及格率只有一半。</p> <p>　　老实说，数学工具对于工科生和对于理科生来说，意义是完全不同的。工科生只要理解了，会用，会查，就足够了。但是很多高校却将这些重要的数学课程教给数学系的老师去教。这样就出现一个问题，数学老师讲得天花乱坠，又是推理又是证明，但是学生心里就只有一句话：学这货到底干嘛用的？</p> <p>　　缺少了目标的教育是彻底的失败。</p> <p>　　在开始学习一门数学工具的时候，学生完全不知道这个工具的作用，现实涵义。而教材上有只有晦涩难懂，定语就二十几个字的概念以及看了就眼晕的公式。能学出兴趣来就怪了！</p> <p>　　好在我很幸运，遇到了大连海事大学的吴楠老师。他的课全程来看是两条线索，一条从上而下，一条从下而上。先将本门课程的意义，然后指出这门课程中会遇到哪样的问题，让学生知道自己学习的某种知识在现实中扮演的角色。然后再从基础讲起，梳理知识树，直到延伸到另一条线索中提出的问题，完美的衔接在一起！</p> <p>　　这样的教学模式，我想才是大学里应该出现的。</p> <p>　　最后，写给所有给我点赞并留言的同学。真的谢谢大家的支持，也很抱歉不能一一回复。因为知乎专栏的留言要逐次加载，为了看到最后一条要点很多次加载。当然我都坚持看完了，只是没办法一一回复。</p> <p>　　本文只是介绍了一种对傅里叶分析新颖的理解方法，对于求学，还是要踏踏实实弄清楚公式和概念，学习，真的没有捷径。但至少通过本文，我希望可以让这条漫长的路变得有意思一些。</p> <p>　　最后，祝大家都能在学习中找到乐趣。</p> <p><strong><span>关注「Python开发者」</span></strong></p> <p><span>看更多精选文章</span></p> <p><span>↓↓↓</span></p> &lt; p &gt;<img data-ratio="0.9166666666666666" data-s="300,640" data-type="png" data-w="600" width="auto" src="/2016/10/23/e5-a6-82-e6-9e-9c-e7-9c-8b-e4-ba-86-e6-ad-a4-e6-96-87-e4-bd-a0-e8-bf-98-e4-b8-8d-e6-87-82-e5-82-85-e9-87-8c-e5-8f-b6-e5-8f-98-e6-8d-a2-ef-bc-8c-e9-82-a3-e5-b0-b1-e8-bf-87-e6-9d-a5-e6-8e-90-e6-ad-bb-2/zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c/_640-2.jpg">  <pre><code> &lt;div id=”js_sponsor_ad_area” &gt; &lt;/div&gt; &lt;div id=”js_toobar3”&gt; &lt;div id=”js_read_area3” &gt;阅读 &lt;span id=”readNum3”&gt;&lt;/span&gt;&lt;/div&gt; &lt;span id=”like3”&gt; &lt;i &gt;&lt;/i&gt;&lt;span id=”likeNum3”&gt;&lt;/span&gt; &lt;/span&gt; &lt;a id=”js_report_article3” href=””&gt;投诉&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=”sg_tj” &gt; &lt;/div&gt; &lt;div &gt; &lt;div id=”js_bottom_ad_area”&gt; &lt;/div&gt; &lt;div id=”js_iframetest” &gt;&lt;/div&gt; &lt;div id=”js_cmt_area” &gt; &lt;div id=”js_cmt_main” &gt; &lt;div &gt; &lt;span &gt;精选留言&lt;/span&gt; &lt;/div&gt; &lt;p id=”js_cmt_nofans1” &gt;该文章作者已设置需关注才可以留言&lt;/p&gt; &lt;p id=”js_cmt_addbtn1” &gt; &lt;a href=”#comment”&gt;写留言&lt;img src=”zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c_icon_edit25ded2-2.png” alt=””&gt;&lt;/a&gt; &lt;/p&gt; &lt;ul id=”js_cmt_list”&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div id=”js_cmt_nofans2” &gt; 该文章作者已设置需关注才可以留言 &lt;/div&gt; &lt;p id=”js_cmt_addbtn2” &gt; &lt;a href=”#comment”&gt;写留言&lt;img src=”zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c_icon_edit25ded2-2.png” alt=””&gt;&lt;/a&gt; &lt;/p&gt; &lt;p id=”js_cmt_tips” &gt;&lt;/p&gt; &lt;div id=”js_cmt_loading”&gt; &lt;img src=”zdkit.ticp.io/wp-content/uploads/2016/10/dd3bbe73b866d3022e4e2f8555d0f79c_icon_loading_white2805ea-2.gif” alt=””&gt; &lt;span &gt;加载中&lt;/span&gt; &lt;/div&gt; &lt;div id=”js_cmt_statement” &gt; &lt;span &gt;以上留言由公众号筛选后显示&lt;/span&gt; &lt;/div&gt; &lt;p id=”js_cmt_qa” &gt; &lt;a href=”<a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene\_id=kf264&quot;" target="_blank" rel="noopener">http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene\_id=kf264&quot;</a>&gt; 了解留言功能详情 &lt;/a&gt; &lt;/p&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=”js_pc_qr_code” &gt; &lt;div &gt; &lt;div &gt; &lt;img id=”js_pc_qr_code_img” &gt; 微信扫一扫&lt;br&gt;关注该公众号 &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/body&gt; </code></pre>  &lt;!–tailTrap<body><br><br> <div><a title="来自为知笔记(Wiz)" href="http://www.wiz.cn/i/c60ddff2" target="_blank" rel="noopener">来自为知笔记(Wiz)</a></div> <br><br><p></p>
+</body>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/杂/" rel="tag"># 杂</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/20/ubuntu-e5-9f-ba-e7-a1-80-e7-9f-a5-e8-af-86-e4-b8-8e-e8-99-9a-e6-8b-9f-e6-9c-ba-e5-ae-89-e8-a3-85/" rel="next" title="Ubuntu 基础知识与虚拟机安装">
+                <i class="fa fa-chevron-left"></i> Ubuntu 基础知识与虚拟机安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/23/autonomous-rc-car-using-raspberry-pi-and-neural-networks-2/" rel="prev" title="Autonomous RC car using Raspberry Pi and Neural Networks">
+                Autonomous RC car using Raspberry Pi and Neural Networks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
