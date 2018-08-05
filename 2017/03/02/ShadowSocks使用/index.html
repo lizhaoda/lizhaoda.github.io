@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="双击打开Shadowsocks. 任务栏会出现这个图标。  对图标进行右键，可看到如下菜单。  先点服务器，先对服务器配置进行修改。然后将你的服务器地址密码等信息填入以后，正常就能使用了。 点击启用系统代理，则挂上VPN。在浏览外网的时候，可以看到这个图标的指示  表明VPN正常使用。 然后点击系统代理模式。分别有PAC模式以及全局模式。通常浏览外网使用PAC模式就足够了。若使用全局模式，有可能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ShadowSocks使用">

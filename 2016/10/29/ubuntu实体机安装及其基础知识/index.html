@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="前言：  实体机相对于虚拟机而言有自己独特的优势，例如性能更好之类的，于是我们就又写了一篇关于实体机的安装经验。并在文章的结尾加上了原理篇，可能由于笔者水平，写的并不是太好懂，但是这是笔者从许多论坛、电脑杂志、书籍总结出来的经验。遇到安装问题，可以参考着原理去找原因。如果问题还没有解决，欢迎留言。准备工具：  ubuntu系统 大于4G可被格式化的U盘一只 电脑 rufus烧录软件。官网地址：ht">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu实体机安装及其基础知识">

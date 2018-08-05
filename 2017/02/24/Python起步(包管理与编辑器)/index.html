@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="通常Python入门，很多情况都是直接在IDLE上敲代码，但是这个IDLE又没有补全，又没有赏心悦目的界面，这就很郁闷了…. 于是，对于编辑器，这就好好选择了。 安装Anaconda这是Python的一个包管理器，通过它，你可以十分轻松地对Python的包进行管理（安装与卸载）。（这包就是Python的生命呀，还不好好地弄好） 因为Python有2和3，相互又有点不兼容，所以Anaconda也有对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python起步(包管理与编辑器)">

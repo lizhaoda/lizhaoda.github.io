@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KNN算法">

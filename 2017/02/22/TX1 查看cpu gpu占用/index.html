@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="running ~/tegrastats and look for GR3D1234sudo ~/tegrastats[sudo] password for ubuntu:RAM 277/3854MB (lfb 700x4MB) SWAP 0/0MB (cached 0MB) cpu [0%,0%,0%,0%]@1912 EMC 0%@1600 AVP 5%@115 VDE 0 GR3D 0%@7">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TX1 查看cpu gpu占用">

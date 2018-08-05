@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="本文是在centos7的 LAMP环境下搭建的wordpress！  LAMP环境就是Linux+Apache+Mysql+PHP。因此目前Mysql被MariaDB所代替。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品 安装Apache Web服务器1sudo yum install httpd 安装完成之后我们就可以运行以下命令启动Apache服">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos上安装wordpress">

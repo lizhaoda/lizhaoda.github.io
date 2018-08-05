@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="（本文大部分为别人整理的摘录，其中加入少许个人安装时候的补充）   由于TX1是ARM架构，其编译与下载与PC上的ubuntu系统有些许不同。以下进行归纳整理： 环境配置编译环境配置安装必要的caffe环境12345678sudo add-apt-repository universe  sudo apt-get update  sudo apt-get install cmake git apt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TX1 Caffe安装与配置">

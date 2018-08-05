@@ -21,6 +21,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -107,17 +118,6 @@
 
 
 
-
-<script>
-    (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
-                alert('密码错误！');
-                history.back();
-            }
-        }
-    })();
-</script>
   <meta name="description" content="事情的起因是这样的：  于是呼，写下了下面的代码输入不同的time，可以得到不同的结果123456789101112#!/usr/bin/python# -*- coding: UTF-8 -*-time = 5guess = [&amp;apos;你猜我&amp;apos;]for x in range(time):    guess.append(&amp;apos;猜你&amp;apos;)str = &amp;apos;&amp;apo">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
