@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <meta name="description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KNN算法">
+<meta property="og:url" content="http://yoursite.com/2016/11/02/KNN算法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9.png">
+<meta property="og:image" content="http://yoursite.com/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_279cb743-0ab3-441d-811d-6be665aabaf3.png">
+<meta property="og:updated_time" content="2018-08-04T16:36:15.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KNN算法">
+<meta name="twitter:description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
+<meta name="twitter:image" content="http://yoursite.com/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/02/KNN算法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>KNN算法 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/02/KNN算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">KNN算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-11-02 00:25:51" itemprop="dateCreated datePublished" datetime="2016-11-02T00:25:51+08:00">2016-11-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-05 00:36:15" itemprop="dateModified" datetime="2018-08-05T00:36:15+08:00">2018-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="KNN（k-NearestNeighbor）算法，即k-近邻算法"><a href="#KNN（k-NearestNeighbor）算法，即k-近邻算法" class="headerlink" title="KNN（k-NearestNeighbor）算法，即k-近邻算法"></a>KNN（k-NearestNeighbor）算法，即k-近邻算法</h4><p>近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。</p>
+<h4 id="KNN的算法思想："><a href="#KNN的算法思想：" class="headerlink" title="KNN的算法思想："></a>KNN的算法思想：</h4><p>KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。</p>
+<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg" alt=""></p>
+<p>以最近邻法距离：</p>
+<p>对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，则第i类wi的判别函数为：</p>
+<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9.png" alt=""></p>
+<p> 其中xik表示是wi类的第k个样本。</p>
+<p>决策规则为： 如果<img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_279cb743-0ab3-441d-811d-6be665aabaf3.png" alt="">，则决策X∈wj</p>
+<p> (在以上公式中，使用||·||表示距离，这只是一个象征性的表示，其实可以采用任何一种相似性的度量，一般采用欧氏距离的相似性的度量比较多。而实际上因为特征向量的各分量之间对应的物理意义很可能不一致，所以使用哪个度量应看问题而定)</p>
+<h4 id="KNN的优缺点："><a href="#KNN的优缺点：" class="headerlink" title="KNN的优缺点："></a>KNN的优缺点：</h4><p>优点：</p>
+<ul>
+<li>算法思想简单，实现方法简单</li>
+<li>在模板数量很大时，其错误率指标还是相当不错的</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>计算量大（每一个样本进行KNN时，都需要与所有已知样本进行计算）</li>
+<li>存储量大（需要存储大量已知样本作为模板）</li>
+</ul>
+<hr>
+<p>明确目标：</p>
+<ol>
+<li><p>编写KNN算法，当K = 1时， 即为最近邻算法。  </p>
+</li>
+<li><p>封装为类（直接给KNN传入样本集，测试集和K，输出结果为测试集预测出的对应类标）</p>
+</li>
+</ol>
+<h5 id="1-计算欧氏距离"><a href="#1-计算欧氏距离" class="headerlink" title="1. 计算欧氏距离"></a>1. 计算欧氏距离</h5><p>根据式子，每一个待测样本需要与训练集中的样本求欧氏距离，于是定义函数：</p>
+<ol>
+<li><code>def eucldist_vectorized(self, coords1, coords2):</code></li>
+<li><code>&quot;&quot;&quot; Calculates the euclidean distance between 2 lists of coordinates. &quot;&quot;&quot;</code></li>
+<li><code>return np.sqrt(np.sum((coords1 - coords2)  **  2))</code></li>
+</ol>
+<h5 id="2-记录下K个最小距离的类标"><a href="#2-记录下K个最小距离的类标" class="headerlink" title="2. 记录下K个最小距离的类标"></a>2. 记录下K个最小距离的类标</h5><ol>
+<li><code>tmp =  []</code></li>
+<li><code>for i in range(sample.__len__()):</code></li>
+<li><code>for x in sample[i]:</code></li>
+<li><code>euc_distance = np.linalg.norm(np.array(t)  - np.array(x))</code></li>
+<li><code># o_distance = self.eucldist_vectorized(t, s)</code></li>
+<li><code>if len(tmp)  &lt;= k:</code></li>
+<li><code>tmp.append([i, euc_distance])  # format [cls, euc_distance]</code></li>
+<li><code>else:</code></li>
+<li><code>tmp.sort(key=itemgetter(1), reverse=True)</code></li>
+<li><code># print tmp</code></li>
+<li><code>if euc_distance &lt; tmp[0][1]:</code></li>
+<li><code>tmp[0]  =  [i, euc_distance]</code></li>
+</ol>
+<p>在这里，tmp列表用于记录K个最近邻的样本。其每个元素的记录格式为[类标，这个样本与待测样本的距离]</p>
+<p>当tmp列表的长度小于K时，直接记录这一样本的信息</p>
+<p>若tmp列表的长度等于K时，先对tmp列表按euc_distance有大到小排序，然后直接与列表第一项比较，若其距离小于第一项的距离，则更新这第一项</p>
+<h5 id="3-处理tmp列表"><a href="#3-处理tmp列表" class="headerlink" title="3. 处理tmp列表"></a>3. 处理tmp列表</h5><p>因为得到最相似的K个样本后，其对应的欧氏距离将没有意义，所以从tmp列表中去掉euc_distance的记录</p>
+<ol>
+<li><code>tmp = np.array(tmp)[:,  0].tolist()</code></li>
+</ol>
+<h5 id="4-确定此待测样本类标"><a href="#4-确定此待测样本类标" class="headerlink" title="4. 确定此待测样本类标"></a>4. 确定此待测样本类标</h5><ol>
+<li><code>def set_class(self, tmp):</code></li>
+<li><code>dir =  Counter(tmp)</code></li>
+<li><code>c = dir.most_common()[0][0]</code></li>
+<li><code># print c</code></li>
+<li><code>return c</code></li>
+</ol>
+<p>通过Counter函数统计tmp列表中的值，Counter会自动把出现次数最多的类标放置于首位，于是取出首项类标，即为我们所需。</p>
+<hr>
+<p>以上代码封装好后，就可以根据我们实际数据进行操作了。最后统计出结果。</p>
+<p>在实际使用过程中，我们会发现，样本数量多，计算时间过长，效果虽好，代价太大。所以我们可以采用一些优化算法，以提取出训练集的特征，减少样本数量。</p>
+<p>以下列出三种优化算法（先不细说，有空再说~）：</p>
+<ul>
+<li>快速近邻算法</li>
+<li>剪辑最近邻算法</li>
+<li>压缩近邻法</li>
+</ul>
+<hr>
+<p>最后，因为本人初出茅庐，涉世不深，如本文有何纰漏，敬请指出<br>另外，若你知道代码有何更好更简洁的编写方法<br>请您告诉我~谢谢~感激不尽  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/29/ubuntu实体机安装及其基础知识/" rel="next" title="ubuntu实体机安装及其基础知识">
+                <i class="fa fa-chevron-left"></i> ubuntu实体机安装及其基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/15/浅浅笑/" rel="prev" title="浅浅笑">
+                浅浅笑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#KNN（k-NearestNeighbor）算法，即k-近邻算法"><span class="nav-number">1.</span> <span class="nav-text">KNN（k-NearestNeighbor）算法，即k-近邻算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KNN的算法思想："><span class="nav-number">2.</span> <span class="nav-text">KNN的算法思想：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KNN的优缺点："><span class="nav-number">3.</span> <span class="nav-text">KNN的优缺点：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-计算欧氏距离"><span class="nav-number">3.1.</span> <span class="nav-text">1. 计算欧氏距离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-记录下K个最小距离的类标"><span class="nav-number">3.2.</span> <span class="nav-text">2. 记录下K个最小距离的类标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-处理tmp列表"><span class="nav-number">3.3.</span> <span class="nav-text">3. 处理tmp列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-确定此待测样本类标"><span class="nav-number">3.4.</span> <span class="nav-text">4. 确定此待测样本类标</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
