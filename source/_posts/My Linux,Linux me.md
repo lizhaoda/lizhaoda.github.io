@@ -27,14 +27,16 @@ Linux通常是我们对这些发行版的总称，而我们通常使用的Linux�
 
 1.  Ubuntu（乌班图）  
     我们最为常用的Linux发行版。Ubuntu是一个以桌面应用为主的Linux操作系统。其属于debian系，软件管理使用deb，apt-get，更新频繁，软件多，有自带商店，可以从商店里直接下载，界面友好，适合新手入门。另外，还有好多开源项目都是基于ubuntu的，例如机器人操作系统ros。  
-    ![](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_0.5278674683067948.png)
+
+![](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_0.5278674683067948.png)
     
 2.  CentOS  
     CentOS追求稳定，有些软件并不是最新的，而是最稳定的，更新升级慢（如果有严重bug也会快速升级）所以服务器常用这个发行版。软件管理用yum机制。
     
 3.  Deepin  
     国产操作系统，可替代Windows，颜值高，堪比MAC。更好的是，深度科技与多个国内厂商合作，推出了网易云、QQ、输入法等适合中国国情的软件。另外，该系统还可以直接运行安卓程序，系统生态圈大大加强！最后，由于该系统也是基于Debian的，所以也存在大量的库！所以简单的开发也是可以的。总而言之，如果你已经彻底厌烦了windows，又苦于Ubuntu没有中国人常用的软件，Deepin是你的最好选择！  
-    ![](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_0.40704856091178954.png)
+
+![](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_0.40704856091178954.png)
     
 
 #### 总结
@@ -79,5 +81,5 @@ linux虽然版本繁多，分支复杂，但是linux发行版的大多数指令�
 
 ### 附件列表
 
-*   [Linux发行版分支.png](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_Linux发行版分支.png)
-*   [Linux分支精简.png](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_Linux分支精简.png)
+![Linux发行版分支.png](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_Linux发行版分支.png)
+![Linux分支精简.png](My Linux,Linux me/b161f9d1e23664699df382fbca79786a_Linux分支精简.png)

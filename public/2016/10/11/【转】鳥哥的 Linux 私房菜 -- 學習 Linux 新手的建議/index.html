@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+  <meta name="description" content="Linux 的学习曲线，一个老人家的建议！ 最近更新日期：2004/10/24 学习 Linux 的过程并不简单！因为我们过去一直都是在某些特定软件的支配之下，  所以对于这个由一群素眛谋面的工程师因为『兴趣』而发明出来的操作系统，  其实开始时候的接受度并不是很好的。  然而因为 Linux 的学习会使用到很多的基础观念，因此，  对于想要更深入认识您所使用的操作系统的朋友来说，  其实 Lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議">
+<meta property="og:url" content="https://lizhaoda.github.io/2016/10/11/【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux 的学习曲线，一个老人家的建议！ 最近更新日期：2004/10/24 学习 Linux 的过程并不简单！因为我们过去一直都是在某些特定软件的支配之下，  所以对于这个由一群素眛谋面的工程师因为『兴趣』而发明出来的操作系统，  其实开始时候的接受度并不是很好的。  然而因为 Linux 的学习会使用到很多的基础观念，因此，  对于想要更深入认识您所使用的操作系统的朋友来说，  其实 Lin">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-04T06:14:34.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議">
+<meta name="twitter:description" content="Linux 的学习曲线，一个老人家的建议！ 最近更新日期：2004/10/24 学习 Linux 的过程并不简单！因为我们过去一直都是在某些特定软件的支配之下，  所以对于这个由一群素眛谋面的工程师因为『兴趣』而发明出来的操作系统，  其实开始时候的接受度并不是很好的。  然而因为 Linux 的学习会使用到很多的基础观念，因此，  对于想要更深入认识您所使用的操作系统的朋友来说，  其实 Lin">
+
+
+
+
+
+
+  <link rel="canonical" href="https://lizhaoda.github.io/2016/10/11/【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lizhaoda.github.io/2016/10/11/【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【转】鳥哥的 Linux 私房菜 -- 學習 Linux 新手的建議
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-11 22:11:18" itemprop="dateCreated datePublished" datetime="2016-10-11T22:11:18+08:00">2016-10-11</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Linux</strong> <strong>的学习曲线，一个老人家的建议！</strong></p>
+<p>最近更新日期：2004/10/24</p>
+<p>学习 Linux 的过程并不简单！因为我们过去一直都是在某些特定软件的支配之下，  所以对于这个由一群素眛谋面的工程师因为『兴趣』而发明出来的操作系统，  其实开始时候的接受度并不是很好的。  然而因为 Linux 的学习会使用到很多的基础观念，因此，  对于想要更深入认识您所使用的操作系统的朋友来说，  其实 Linux 真的是一套很棒很棒的操作系统喔！</p>
+<p>这个网站的内容，是由鸟哥在刚刚接触 linux 的时候就开始写起的，  简单的来说，这个网站的内容基本上就是『鸟哥的 Linux 血泪史～』  因为鸟哥在新手的时候遇到相当多的问题，虽然一步一步的找出问题，并且解决他，  不过，刚开始时，并不是那么容易就可以解决一个小问题的。  因为很多的知识都是来自于 Internet 上面的，所以也就回馈这样的一个网站给朋友们了。  请大家看一看鸟哥是如何学习 Linux 的吧！</p>
+<ul>
+<li><a href="#VBirdandLinux">1. VBird 与 Linux</a></li>
+<li><a href="#VBird_learn">2. VBird 的 Linux 学习之路</a></li>
+<li><a href="#learn">3. 学习心态的分别</a></li>
+<li><a href="#learn_basic">4. 基本的学习流程</a></li>
+<li><a href="#network">5. 基本的架站流程表</a></li>
+<li><a href="#security">6. 简易的安全防护</a></li>
+</ul>
+<p><strong>1. VBird</strong> <strong>与</strong> <strong>Linux</strong></p>
+<p>在开始给 Linux 的新手建议前，得先让您晓得的是，为什么鸟哥要这样的建议新手学习呢？  所以，先交代一下 VBird 学习 Linux 的心路历程啰，好让您了解到，  为何 VBird 会比较熟悉 Linux 这门艺术！</p>
+<p>数年前 VBird 因工作的需要，『被迫』得去学习 Unix 系统，  那个时候我们使用的 Unix 系统是 Sun 这家公司的机器，  当时的 Sun Unix 可不是一般人玩的起的，当然， VBird 也是一般人，所以当然也就玩不起 Sun Unix 啰！然而工作的案子还是需要进行的，  那怎么办呢？这个时候就得要想一些替代方案啦！</p>
+<p>咦！听说有另外一种可以在个人计算机 ( Personal Computer, PC ) 跑的 Unix-Like 系统，叫做 Linux 的，  他的接口啦、功能啦、以及基本的档案架构都跟 Unix 差不多，  甚至连系统稳定性也可以说是一模一样，而且对于硬件配备的要求并不高。  嗯！既然玩不起几十万起跳的 Unix 系统，  那么使用一些即将废弃的计算机配备来架设一部 Linux 主机吧！</p>
+<p>在经过了一些时候的努力之后，呵呵！竟然真的给我架起来了(当时的版本是 Red Hat 6.1)！  哇！好高兴！那么就赶快先来熟悉他，然后等到有了一定的经验值『升级』成老手级之后，  再来玩 Unix 吧，以免玩坏了几十万的大计算机！嗯！这似乎是不错的方式，  所以就开始了 VBird 的 Linux 学习之路啦！</p>
+<p><strong>2. VBird</strong> <strong>的</strong> <strong>Linux</strong> <strong>学习之路</strong></p>
+<p>由于 VBird 之前从未玩过 Linux 这套操作系统，而且听说还需要使用到指令列模式！  刚开始碰还真的有点紧张。还好，VBird 玩计算机的历史可以追溯之前的 DOS 年代，  所以对于指令列模式多多少少还有点概念，或许应该可以撑上一阵子吧！？  但是没想到 Linux 的指令真是『博大精深』吶！早期的 DOS 概念简直就是不够用啊～  因此，为了偷懒，一开始 VBird 就舍弃指令列模式，直接在 X-Window 上面玩起来了！</p>
+<p>在还没有安装 Linux 之前，VBird 买了两三本书，每本都看了 N 遍，发现到每一本书的前半段，  在 Linux 的基础方面的介绍谈的不多，了不起就是以一些工具教你如何设定一些很重要的参数档案，  但偏偏没有告诉你这些工具到底做了什么事情或修改了哪些档案？  不过书的后半段却放上了很多的架站文件，然而却都有点『点到为止』，  所以当时总觉得 Linux 很有点朦朦胧胧的感觉，而且在当时最严重的现象是  『只要一出现问题，身为使用者的 VBird 完全无法解决，  所以只好重新安装，选择设定与书本教的内容完全一模一样！』不过，即使如此，  很多时候仍然解决不了发生问题的窘境！</p>
+<p>在当时，由于知道 Linux 可以用来做为很多功能的服务器，而 VBird 的研究室当时又需要一部 mail server ，  所以就很高兴的藉由书上的说明，配合 Linux distribution 提供的一些工具程序，例如： Linuxconf, netcfg 等等的工具来架设。然而由于工具程序的整合度并不见得很好，  所以常常修改一个小地方会搞上一整天！</p>
+<p>好不容易使用了所有的知道的工具来架设好了我的 mail server ，哈哈！真高兴，  请注意呦！这个时候我的 Linux 主机上面开了多少的 ports/services 其实 VBird 并不清楚，  当时认为『我的机器就只有我认识的一些朋友知道而已，  所以反正机器能跑就好了，其他的设定似乎也就不这么重要』。</p>
+<p>然而事实上，这种学习心态却造成了后来 VBird恶梦的开端！  怎么说呢？首先，虽然 Linux 号称需要的硬件等级不高，不过 X-Window 却是很耗系统资源的一项软件，  因为只要涉及到图形接口的话，需要亲和力嘛！就需要多一点 RAM 啦、多一些硬盘空间啦、  显示适配器与 CPU 要好一点啦等等的，且早期的图形接口整合度不是很高，  所以造成 X-Window 死掉的机会是很高的。</p>
+<p>在 VBird 当时安装的 Linux 主机当中，  使用的是旧旧的计算机，系统的配备并不高，在跑了 X-Window 之后，剩下可以使用的物理内存其实已经不多了，  再跑其他的服务，例如 mail server ，实际上有点很吃力！  所以当时的一些同仁常常抱怨我们的机器怎么老是服务不良？怪怪！  这个 Linux 怎么跟『号称稳定』的名号不符？而在 VBird 进入系统检查之后，才发现，哇！ X-Window 又挂了？当时还不清楚原来可以使用 ps 及 kill 等指令将 X-Window 杀掉即可让 Linux 恢复正常，  竟然是用 reset 的方式来重新启动 Linux ，现在想起来，当时真糗….</p>
+<p>后来再重新安装一次 (嗄？由图形接口转到文字接口要重新安装？不要怀疑，当初没有学好的时候，  就是以为需要重新安装，因为 Windows 的经验告诉我这样做是『对的！』) 选择了文字接口登入系统，  呵呵！果然系统是稳定多了！服务上面似乎也就安定了许多。不过，您以为恶梦这样就解决了吗？当然不是！  在我的机器服务了一阵子之后，我老板竟然接到上层单位的来信，  信中说明『贵单位的主机可能有尝试入侵国外主机之嫌，敬请妥善改善！』  哇！这不就是警告信吗？还好不是律师存证信函～还好，  当时至少还知道有所谓的系统注册表档案可以分析确切日期有谁在在线，没想到一登入之后才发现，  搞了老半天，原来我们的机器被入侵了！而身为管理者的 VBird 竟然还茫然不知～这真是一大败笔….</p>
+<p>在赶快重新安装，并且重新参考很多文件，架设好了防火墙之后，以为终于从此就可以高枕无忧了！  唉～结果还是不尽然的，因为我们的 mail server 早就被当成垃圾转信站，  造成局域网络内网络流量的大量提高，导致常常会无法连上 Internet …..</p>
+<p>在经过了这么多的事件之后，终于发现，如果想要 Linux 帮我做好我想要达成的工作，  则 Linux 的学习并不是只要『会用就好』，  这样的心态会造成相当大程度的伤害，不论是针对您自己还是您服务的单位，  君不见上头的警告信函吗？</p>
+<p>所以，在经过了这多灾多难的一年多之后，终于还是痛定思痛，  定下心来重新的再出发，将 Linux 的概念完整的建立起来，包括 Linux 最最基础的档案架构、  指令模式与脚本(Shell and shell scripts)、套件管理方式和资源与账号管理等等，  而在将这些基础的架构理解之后，再回头看一下各式各样的 server 启动服务与相关的技巧，  发现『哇！原来如此呀！怎么这么简单的东西当初搞了我几天几夜睡不好！』  尤其最重要的登录信息的追踪，帮 VBird 避免了很多不必要的系统伤害行为。</p>
+<p>此外，而为了方便 VBird 本身的管理，于是开始了一些脚本 (shell scripts) 的编写，  他可以化繁为简，让日常的管理变的更轻松而有效率！当然，这些工作几乎都是在文字接口底下完成的，  图形接口之下的工作毕竟还是有限的。</p>
+<p>经过上面 VBird 学习之路的经验分享之后，我想，您应该也慢慢的了解 VBird 想要提出这本经验谈的书籍最主要的目的了，  那就是想『让想要学习 Linux 的玩家可以快速且以较为正确的心态来进入 Linux 的世界！』而不要像 VBird 在 Linux 的环境中打转了一年之后才来正确的建立概念。说到这里要跟大家谈一谈目前的 Linux 学习心态。</p>
+<p><strong>3.</strong> <strong>学习心态的分别</strong></p>
+<p>大家都知道 Linux 最强项的地方在于网络，而 Windows 是赢在用户接口较为亲善。  然而很多使用者还是常常会比较 Linux 与 Windows 这两套相当流行的操作系统，  初次接触 Linux 的人比到最后的结果都是  『Linux 怎么都要使用文字接口来架站，怎么这么麻烦，还是Windows 比较好用』，  事实上这么比较实在是有点不公平且没有意义，为什么呢？基本上， Windows 是很普及的一个操作系统，这点我们都无法否认，但是，一般使用 Windows 的使用者用 Windows 来做什么？</p>
+<ul>
+<li>上网聊天打屁<br>无可否认的，用 Windows 来上网浏览信息与聊天对于一般用户来说是很重要的！^_^ 不过，这点在 Linux 底下的 X-Window 就能做到啦！请问您，需要用到文字接口吗？不需要对不对！  而且 X-window 越来越美丽(例如 GNOME/KDE 等等)，能使用的空间越来越大！  使用者想要使用 Linux 来上网打屁，没有问题啰！</li>
+<li>打打文书工作、做做电子电子表格<br>文书工作也是目前计算机族群最重要的课题了。这个工作目前在 X-Window 也有相当多的免费软件！  例如 KDE 的 Koffice, 例如 Open office ，  呵呵！同样的，在 X-Windows 底下，很棒对不对！！是的！真的很容易学习！尤其接口都是图形化的！这也没有问题！</li>
+<li>打打 game、做做休闲娱乐<br>玩一些较新的3D 游戏可能在 Linux 底下稍微麻烦一点，  因为目前游戏对于 Linux 的支持度还不是很足够！  但是如果是一般上班族群的话，那么 Linux 内附的小游戏是相当多的！  让您玩不完，所以，这一点对于大部分的上班族来说，也应该还好！</li>
+</ul>
+<p>当然啦，Windows 的工作环境还有很多可以发展的空间，不过这里我们主要以一般使用者的角度来看。 OK！好了，说了上面这几个工作，请问一下，  『一般使用者谁有在使用 Windows 玩架站！』？很少对不对！  是的！真的是很少人在玩 Windows 的架站！那么如何可以说 Linux 无法普及是文字接口惹的祸呢？！ VBird 相信，如果是一般使用者，应该不至于想要使用 Linux 来架设网站，  所以美美的 X-Window 对于一般使用者已经相当的好用了，实在没有必要来学习架站的原理与过程，  还有防火墙的注意事项等等的。</p>
+<p>话再说回来，那么您干嘛要使用 Linux 架站呢？『因为 Linux 的网络功能比较强呀！』  说的没错，但是，相对的，比较强的项目可能也具有比较『危险』的指数，  当您一开始学习 Linux 就只想满脑子的玩架站，却又不好好的弄懂一点点 Linux 与网络基础的话，  呵呵！在 Windows 底下了不起是被攻击到您的 Windows 死掉，但是在 Linux 底下，  却有可能让您吃上官司的！像上面提到的 VBird 之前的经验。  而如果您已经习惯以  图形化接口  来管理您的 Linux 主机时，  请特别留意，因为 Linux 的套件是由多个团队研发出来的，( NFS, SAMBA, Sendmail…) 图形接口也仅是一个团队的研发成果，您认为，一个团队的东西可以将所有团队的内容都完整无缺的表现出来吗？  想必肯定可能会有一些问题发生，这个时候怎么办？如果您依赖图形久了，呵呵！  看来就只能求助于外面的工程师了，如此一来，有学跟没有学有何不同？！</p>
+<p>曾经有个朋友问我说『唉！ Linux 怎么这么麻烦？架设一个 DNS 真是不容易呀！不像 Windows ，简单的很，按几个按钮就搞定了！』这个时候 VBird 就回答了一句话『不会呀！如果您只是想要安装 DNS 的话，网络上面一大堆按部就班的设定方式教学，照着做，一样可以在十分钟之内就完成一个 DNS 主机的设定呀！』他想一想，确实有道理！同时 VBird 又反问的一件事：『您以为学 Windows 就不需要了解 DNS 的概念吗？您有尝试过使用 Windows 架设 DNS 却无法让他实地跑的问题吗？  果真如此的话，这个时候你怎么解决？』他愣住了！因为在 Windows 上面他确实也没有办法解决！所以说，不论是学哪一套系统，  『基础的理论都是不变的』，也只有了解了基础的咚咚之后，  其他的技能才能够『触类旁通』呀！</p>
+<p>网络上一些老手不太喜欢搞图形接口，是因为觉得他预设的设定常常不合他们的意，  尤其是，因为图形化接口管理为了方便用户，常常自己加入一些设定，  但是这些设定却往往是因地制宜的，所以反而常常会导致架设的网站无法正常工作！  这点在网络新闻组上面讨论的已经相当清楚了！与其如此，何不一开始就玩文字接口，去弄懂他呢？</p>
+<p>此外，很多玩过 Linux 的朋友大概都会碰到这样的一个问题，  就是 Linux 的 distribution ( 发展厂商 ) 事实上是非常多的！而每个 distribution 所提供的套件内容虽然大同小异，然而其整合的工具却都不一样，同时，每种套件在不同的 distribution 上面摆放的目录位置虽然也是大同小异，然而某些配置文件就是摆在不同的目录下，  这个时候您怎么找到该信息？难道非得来一套 distribution 就学他的主要内容吗？这么一来，市面上少说也有数十套 Linux distribution ，每一套都学？如果您时间多到如此地步，那 VBird 也不知道该说什么好了！  如果是我的话，那么我会干脆直接学习一些 Linux 的基本技巧，  可以让我很轻易的就找到不同版本之间的差异性，而且学习之路也会变的更宽广呢！</p>
+<p>VBird 的观念不见得一定适合您，不过就只是以一个过来人的身份给个小建议，要么就不要拿 Linux 来架站，跟 Windows 一样，玩玩 X-Window 就很开心了，要嘛真的得花一点时间来玩一玩比较深入的东西，  中国话不是说过吗：『要怎么收获就怎么栽』虽然努力不一定有成果，但最起码，  有成果的时候，成果肯定是自己的！</p>
+<p><strong>4.</strong> <strong>基本的学习流程</strong></p>
+<p>由上面鸟哥的经验谈，你不难了解到，学习 Linux 还是需要按部就班是比较好的！  常常我们会看到初学者最常问的问题就是：『我已经安装好了 Linux 了，接下来要干嘛？！』呵呵！老师们最常讲的一句话就是：  『那就开始学习如何”开机”跟”关机”呀！』不要笑喔！  说真的，安装好了 Linux 之后，最先要学习的就是正确与安全的开机与关机方法！  否则由于不正常的开关机造成硬盘的损害怎么办！？好了！那么我也会开机关机了，  那接下来要干嘛？哈！建议买本书来看看吧！</p>
+<p>基本上，由于 Linux 是一个开放的架构，所以根本没有所谓的『规格品！』，  也就是说，每个人所安装好并且设定好的主机都不是相同的！加上 Linux 的历史差不多十多年左右而已，  并且，他的发展并不是由一家公司所主导的，而是由一群热血青年相互研究开发的！  也就是如此，所以一些操作方法与 HOW-TO 的文章并不是十分的多，尤其是中文译本更是少的可怜！  因此，要学习好 Linux 的话，最好手边有一本『工具书』，  那么要选择什么型式的工具书呢？！就鸟哥的看法而言，基本上，如果你对于 Linux 的基础操作指令与他的档案架构、工作方法、安全防火墙设定等有一定的了解时，那么开启网络服务如 WWW、FTP、Mail、DNS 等等的服务就真是太简单了！所以，选择较为基础的工具书作为你第一本的 Linux 参考书会比较好！早期不要急着买跟架站有关的书籍啦！那方面的文章太简单了！  还是建立基础的功力比较有用呢！也有朋友这样建议，找一天有空的时间，然后一整天泡在书店，  好好的选择一本入门书籍，嗯！蛮不错的建议！鸟哥也好想找一天泡在书店呀～</p>
+<p>因此，这里建议想要学习 Linux 的朋友们，基础的功夫要学好，往后就不需要太麻烦人家啰！：</p>
+<ul>
+<li>先从 Linux 的安装与指令学起：<br>没有 Linux 怎么学习 Linux 呢？所以好好的安装起一套你需要的 Linux 吧！虽然说 Linux 的 distributions 很多，不过基本上架构都是大同小异的，差别在于接口的亲和力与套件的选择不同罢了！所以，选择一套你喜欢的就好了，  倒是没有哪一套特别好说～～</li>
+<li>了解 Linux 的档案架构与权限概念：<br>这个重要！由于不同的权限设定会妨碍你的使用者的便利性，但是太过于便利又会导致入侵的可能！  所以这里需要了解一下你的系统呦！</li>
+<li>多接触文字接口：<br>尽量以文字接口学习一些基本的 Linux 使用技巧，虽然一开始进度较慢，但是熟悉之后，  您未来的学习之路将是以指数增加的型态来增长您的 Linux 技术呦！</li>
+<li>认识与 BASH 相关的咚咚：<br>既然要玩文字接口，那么 BASH shell 这个玩意儿，与里面的『正规表示法』、  『管线命令』与『命令重导向』等等，真的需要了解比较好呦！此外，为了帮助您未来的管理， shell scripts 也是挺重要的！</li>
+<li>学习一下如何使用 Shell 与 Shell scripts 的写法：<br>这个是稍微进阶了点，不过也建议学一学呢！对于管理 Linux 主机的用途很大呦！</li>
+<li>至少一定要了解套件管理员：<br>记得将最重要的套件管理员，亦即 RPM 与 Tarball 的技巧完整的建立概念，  这将是您相当重要的一门课！</li>
+<li>实作的重要性：<br>在看过书本或者网络上的相关介绍之后，请千万记得自己实作看看，  没有任何事情比自己实作学的更快的！此外，不要尽信书本或者网络上的教学，  自己亲身去理解，才能体会个中的含意与技巧。</li>
+</ul>
+<p>在进入网络的世界之前，先将基础打稳，那么进入网络的世界将一点都不困难！</p>
+<p>另外，这里还要建议大家，就鸟哥观察一些现象的结果来看（喔！这是结果论啦！），  常常在网络上发问的朋友们都是一遇到问题就想要马上得到一些老手的帮助的朋友，不过，  其实这些朋友遇到的问题的解决方案都已经显示在屏幕上啦！  因为 Linux 的错误讯息本来就含有相当大量的解决方案的说明在内！此外，在 /var/log 这个目录中的错误讯息也常常提供大量的解决方案！这些都是可以帮你自己节省时间的参考工具！</p>
+<p><strong>5.</strong> <strong>基本的架站流程表</strong></p>
+<p>好了，既然 Linux 的网络功能很强，那么当然很多朋友的目的即是利用 Linux 来达成架站的目的啰！呵呵！没错！因此，接下来，就是要玩架站啦！不过，除非您对于 Linux 已经够熟悉，或者是没办法，  真的有公司的压力在，否则，在认识整个 Linux 架构之前，真的不要玩架站！！  因为，架设不成功那就算了，万一被入侵并且被用来做坏事，那可就太划不来啦！</p>
+<p>此外，鸟哥常常发现一件事情，就是朋友们常常会问一些很怪异的问题，这些问题提出后，  一看就晓得大概这个朋友没有架站的经验啦！任何事情都有先后之分，在你尚未学到的咚咚前，  先放着不动也没有关系！但千万不要跳着学习！！这是大忌讳～例如：不要连 Apache 都还不会架设，就想要架设一个在 NAT 后面的 Apache 主机，  那根本就是一个很难完成的任务！即使完成了，可能也会衍生出更多的小问题来困扰你！  与其如此，不如一步一步的慢慢建置你的网站，不要想着一步登天啦！很困扰的！</p>
+<p>说实在的，通常每个人都有特别喜好的架站方法，当然鸟哥也不例外，  如果您对于鸟哥还有点信心的话，那么你可以依照底下的方式一步一步的建立起属于你的 Linux 工作环境喔！</p>
+<ul>
+<li><a href="http://info.sayya.org/~edt1023/linux_entry.html" target="_blank" rel="noopener">给新手的建议</a>：<br>这里有一篇  果正兄  给 Linux 新手的建议，非常建议你看一下，  学一学概念性的东西。另外，里头说的『常用指令』是一定要学会的喔！此外， man 与 info 这两个指令请一定要会使用！</li>
+<li>认识选择硬件配备：Linux 与硬件的关系是『极为重要的』！  所以你一定要知道你的硬件等级！你应该要知道即将装 Linux 的硬件是什么？  所以你要了解你手边的硬件是否可以支持 Linux ，或者说，是否可以满足你的 Linux 需求。</li>
+<li>进行安装：<br>这一部分就视你的需求而定，每个人所喜好的 Linux 版本不见得相同！  不过，如果是新手的话，当然就比较建议使用 Mandrake 或 Red Hat 系统，因为他会比较简单！</li>
+<li>了解 Linux 的基础：<br>这部份包含了 Linux 的群组与使用者概念、档案的权限问题、磁盘与硬件的管理、资源管理的问题、 quota 与账号管理、还有很多很多基本的数据，这些『一定要学会！』  不然，就不要玩架站啦！</li>
+<li>认识与编译核心：<br>其实安装完了 Linux 之后的第一件事，就是将你的核心重新编译一次，以符合你的需求。  不过，目前市面上的书籍大多将核心编译摆在最后面才说，这是顾及到新手通常不知道何为核心，  当然也就不知道核心的功能以及编译核心所带来的稳定性啦！</li>
+<li>认识网络：<br>在实际进入架站的阶段之前，鸟哥希望大家能够对于网络基础有一定程度的认识！尤其是 <a href="http://www.study-area.org/network/network_dns.htm" target="_blank" rel="noopener">DNS</a> 这个观念！！如果对于网络有一定程度的认识之后，对于您自己的网络除错一定能有长远的帮助的！！</li>
+<li>架设局域网络：<br>通常在一个区域中，不太可能仅有一部 PC ，所以，为了分享彼此的信息，或者说是多部计算机的数据分享，  呵呵！这就需要用到局域网络的概念。</li>
+<li>连上因特网：<br>既然是要架站，当然就要连上 Internet 啦，如果使用的是学术网络，就必须要晓得 gateway 与您的 IP 及 Netmask ，而如果使用 ADSL 的话，使用 rp-pppoe 即可搞定网络拨接的问题！那么如果是 Cable 的话，嗯！ DHCP 的设定就得给他知道一下啰！</li>
+<li>为你的主机申请一个名字啦：<br>架站就是要连上 Internet ，所以当然要申请一些必备的数据啰！除非您要自掏腰包去注册固定的 DNS 名称，否则动态 IP 应该够您使用的啰！</li>
+<li>架设 NAT：<br>既然要分享网络带宽的话，当然就是要架设 NAT 啦，架设完了之后，区域内所有的计算机都可以联机了！</li>
+<li>架设 Proxy ：<br>而既然所有的计算机都是透过这一台 NAT 主机来对外联机，当然，设定一个 Proxy 将对你的内部网络的浏览速度应该会有所帮助的！</li>
+<li>架设 Mail：<br>架设 Linux 主机的附属功能，就是可以拥有并控管自己的信箱，以及自己的网页！这时，就需要来架设 E-Mail 了！</li>
+<li>架设 WWW ：<br>如同 mail server ， WWW server 也是很重要的一环， Linux 可以提供给你相当不错的网页空间喔！  更重要的是，设定上很方便很方便….</li>
+<li>架设 SAMBA ：<br>另外一个需要的服务就是 samba 服务了，这个软件让你的 Linux 可以在 Windows 系统的『网络上的芳邻』被看到！很不错的优！因为，Linux 是一套很稳定的系统，而且不容易受到类似  『红色警戒』  这一类的攻击型病毒，因此，你可以使用『网络上的芳邻』将你在 Windows 的数据直接备份，或者直接取用于 Linux 主机中，如此还可具有备份文件的功能！</li>
+</ul>
+<p>基本上，鸟哥所架设的主机大概就只有上面几个服务，不过，  有上面的几项服务也足够应付你所需要的网络信息啰！如果还有需要的话，才建议去研究 DHCP、DNS 与 FTP 等服务啦！</p>
+<p><strong>6.</strong> <strong>简易的安全防护</strong></p>
+<p>其实在架设网站的过程就应该要注意到这方面的技巧了！『网站安全』  真的是很重要的一环！那一天跟一些朋友在聊天的时后聊到了某天 VBird 在报纸上看到的消息！话说美国几乎是全世界黑客最喜欢去入侵的国家（像是微软啦，FBI 啦， CIA 啦等等的！），毕竟他号称是强者，而强者最容易遭到对现实不满或者被欺压者的报复了！</p>
+<p>但是这些黑客总不希望自己的行踪被发现而使自己的国家蒙受委屈吧！所以他们总是会透过 Internet 找寻合适的『中继跳板』站作为入侵的门口，  您晓得吗，在该篇报导中指出，美国最不满的国家之一就是台湾（唉～可怜的台湾，  动不动就要被不满！我们要自立自强才行！！咦！我可不是叫大家去做黑客呦！  我是说我们需要正本清源！从本身做起！好好的注意自己的网站安全呢！），为什么呢？  因为台湾的很多网站普遍缺乏『安全』概念，  甚至有些大型的网站几乎没有安全防护机制！这就容易成为黑客的目标了！  因为大型网站的流量通常够大，足够黑客们进行任何网络破坏行为了！</p>
+<p>想想看，如此一来不只美国，其他国家甚至可能会对于台湾的网络流量进行减缩的动作，  以防止不良的联机封包进入！那么我们以后想要连到国外去不就很龟速了吗？！  是呀！所以安全的网站也是相当重要的呀！</p>
+<p>那么您认为『嗯！反正我的流量又不大，只是 56 kbps 的 ADSL 流量罢了，黑客总不会想要入侵我这种小站吧？！』<br>错！！<br>进行网络黑客的行为根本不需要大流量！  只要能联机就能进行任何的破坏行为了！而且这些联机的讯息通常不会运用来传输数据，  而是用来下达一些简单的指令而已！所以流量也根本就不需要太大的！要知道，如果被黑客侵入后，  将可能变成黑客攻击的中继站！也就是说，后门程序将会帮助黑客经由你的主机去攻击他想要攻击的目标！  那就够严重的了！因为如果对方追查该封包得最后结果是您的网站，呵呵！可是要吃上官司的！！</p>
+<p>所以呢，当然要对于你的 Linux 做一些手术，让他变的更安全才行啦！  在安装完了主机之后，请确认一下：</p>
+<ul>
+<li>架设安全的 Linux 主机；</li>
+<li>限制 Linux 主机的联机计算机；</li>
+<li>更改 wu-ftp 成为 proftp 系统；</li>
+<li>简单的防火墙设置；</li>
+<li>Linux 的套件升级；</li>
+</ul>
+<hr>
+<p><a href="http://www.wiz.cn/i/c60ddff2" title="来自为知笔记(Wiz)" target="_blank" rel="noopener">来自为知笔记(Wiz)</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/09/Ubuntu 安装TensorFlow/" rel="next" title="Ubuntu 安装TensorFlow">
+                <i class="fa fa-chevron-left"></i> Ubuntu 安装TensorFlow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/13/[转]一次心惊肉跳的服务器误删文件的恢复过程/" rel="prev" title="[转]一次心惊肉跳的服务器误删文件的恢复过程">
+                [转]一次心惊肉跳的服务器误删文件的恢复过程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
