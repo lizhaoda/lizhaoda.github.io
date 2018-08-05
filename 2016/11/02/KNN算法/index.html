@@ -125,14 +125,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg">
-<meta property="og:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9.png">
+<meta property="og:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a-150x150.jpg">
+<meta property="og:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9-150x71.png">
 <meta property="og:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_279cb743-0ab3-441d-811d-6be665aabaf3.png">
-<meta property="og:updated_time" content="2018-08-04T16:36:15.792Z">
+<meta property="og:updated_time" content="2018-08-05T06:25:29.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KNN算法">
 <meta name="twitter:description" content="KNN（k-NearestNeighbor）算法，即k-近邻算法近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。 KNN的算法思想：KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。  以最近邻法距离： 对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，">
-<meta name="twitter:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg">
+<meta name="twitter:image" content="https://lizhaoda.github.io/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a-150x150.jpg">
 
 
 
@@ -414,12 +414,13 @@
       
         <h4 id="KNN（k-NearestNeighbor）算法，即k-近邻算法"><a href="#KNN（k-NearestNeighbor）算法，即k-近邻算法" class="headerlink" title="KNN（k-NearestNeighbor）算法，即k-近邻算法"></a>KNN（k-NearestNeighbor）算法，即k-近邻算法</h4><p>近邻法是一种根据样本提供的信息，绕开概率的估计而直接决策的技术，所以它属于非参数判别方法的一种。</p>
 <h4 id="KNN的算法思想："><a href="#KNN的算法思想：" class="headerlink" title="KNN的算法思想："></a>KNN的算法思想：</h4><p>KNN原理上属于模板匹配。将待测样本放入已知样本当中，以最相似的K个已知样本的类标，取数量最多的类标作为此待测样本的类标。</p>
-<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a.jpg" alt=""></p>
+<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_ef1cee39-f471-44a8-ae6f-a93d3648b92a-150x150.jpg" alt=""></p>
 <p>以最近邻法距离：</p>
 <p>对于一个C类别的问题，假设每类有Ni个样本，i = 1, 2,  …, C，则第i类wi的判别函数为：</p>
-<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9.png" alt=""></p>
+<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_9f9fc8d8-6ec3-4f01-b2fe-557a6b5160d9-150x71.png" alt=""></p>
 <p> 其中xik表示是wi类的第k个样本。</p>
-<p>决策规则为： 如果<img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_279cb743-0ab3-441d-811d-6be665aabaf3.png" alt="">，则决策X∈wj</p>
+<p>决策规则为： 如果</p>
+<p><img src="/2016/11/02/KNN算法/37debccc3fe2db00e1b3d5eb1d3a8c5d_279cb743-0ab3-441d-811d-6be665aabaf3.png" alt="">，则决策X∈wj</p>
 <p> (在以上公式中，使用||·||表示距离，这只是一个象征性的表示，其实可以采用任何一种相似性的度量，一般采用欧氏距离的相似性的度量比较多。而实际上因为特征向量的各分量之间对应的物理意义很可能不一致，所以使用哪个度量应看问题而定)</p>
 <h4 id="KNN的优缺点："><a href="#KNN的优缺点：" class="headerlink" title="KNN的优缺点："></a>KNN的优缺点：</h4><p>优点：</p>
 <ul>
